@@ -41,11 +41,11 @@ body{
     min-height: 100vh;
     background-color: rgb(16, 94, 184);
     display: grid;
-    grid-template-columns: 0.2fr 1fr;
-    grid-template-rows: 1fr 0.05fr;
+    grid-template-columns: minmax(min-content, 225px) 1fr;
+    grid-template-rows: 1fr minmax(min-content, 40px);
     grid-template-areas:
         "nav main"
-        "aside aside";
+        "nav aside";
 }
 
 nav,
@@ -57,13 +57,17 @@ main{
 nav{
     grid-area: nav;
     display: grid;
-    grid-template-rows: 0.5fr 1fr;
+    grid-template-rows: min-content 1fr min-content;
+    padding: var(--fs-small) var(--fs-regular);
+    padding-bottom: calc(var(--fs-small)/2);
 }
 
 aside{
     grid-area: aside;
-    display: grid;
-    grid-template-columns: 0.2fr 1fr;
+    display: flex;
+    padding: calc(var(--fs-small)/2) var(--fs-small);
+    justify-content: end;
+    align-items: center;
 }
 
 main{
