@@ -48,6 +48,15 @@ body{
         "nav aside";
 }
 
+ul{
+    font-weight: var(--fw-bold);
+    font-size: var(--fs-regular);
+}
+
+h1{
+    font-size: var(--fs-large);
+}
+
 nav,
 aside,
 main{
@@ -68,6 +77,12 @@ aside{
     padding: calc(var(--fs-small)/2) var(--fs-small);
     justify-content: end;
     align-items: center;
+}
+
+aside,
+.actionMain{
+    font-size: var(--fs-regular);
+
 }
 
 main{
