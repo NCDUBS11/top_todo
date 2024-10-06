@@ -16,8 +16,8 @@
     --fw-thin: 300;
     --fw-regular: 500;
     --fw-bold: 700;
-    --bg-color: rgba(49, 49, 49, 0.5);
-    --bg-color-dark: rgba(26, 25, 25, 0.4);
+    --bg-color: rgb(34, 116, 209);
+    --bg-color-alt: rgba(16, 94, 184, 1.0);
     --bg-actColor:rgba(117, 116, 116, 0.4);
     --bg-button: rgba(189, 3, 3, 0.61);
     --bg-buttonAlt: rgba(255, 44, 44, 0.61);
@@ -40,7 +40,7 @@
 
 body{
     height: 100vh;
-    background-color: rgb(16, 94, 184);
+    background-color: var(--bg-color);
     display: grid;
     grid-template-columns: minmax(min-content, 225px) 1fr;
     grid-template-rows: 1fr minmax(min-content, 40px);
@@ -50,14 +50,8 @@ body{
 }
 
 img{
-    height: var(--fs-large);
+    height: calc(var(--fs-small)*1.5);
     filter: invert();
-}
-
-nav,
-aside,
-main{
-    border: 2px solid black;
 }
 
 ::-webkit-scrollbar{
@@ -116,26 +110,67 @@ li.projectTask{
 
 aside{
     grid-area: aside;
-    display: flex;
+    /* display: flex;
     padding: calc(var(--fs-small)/2) var(--fs-small);
-    justify-content: center;
-    align-items: center;
+    justify-content: center; */
+    height: calc(var(--fs-xlarge)/2);
+    position: relative;
+    border-top: 2px solid white;
+    z-index: 11;
+}
+
+.newTask{
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 0;
+    left: 50%;
+    height: var(--fs-large);
+    z-index: 21;
+}
+
+aside::before{
+    display: inline-block;
+    content: "";
+    border: 2px solid white;
+    border-radius: 50%;
+    height: var(--fs-xxlarge);
+    width: var(--fs-xxlarge);
+    background-color: var(--bg-color);
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 0;
+    left: 50%;
+    z-index: 6;
+}
+
+aside::after{
+    display: inline-block;
+    content: "";
+    border: 2px solid white;
+    border-radius: 50%;
+    height: calc(var(--fs-xxlarge)*1.25);
+    width: calc(var(--fs-xxlarge)*1.25);
+    background-color: var(--bg-color);
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 0;
+    left: 50%;
+    z-index: 5;
+}
+
+aside,
+.actionMain{
+    font-size: var(--fs-small);
 }
 
 .actionMain{
     display: flex;
     justify-content: space-between;
-    align-items: end;
-}
-
-aside,
-.actionMain{
-    font-size: var(--fs-regular);
-
 }
 
 main{
     grid-area: main;
+    background-color: var(--bg-color-alt);
     display: flex;
     align-items: center;
     justify-content: center;
