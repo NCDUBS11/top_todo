@@ -16,8 +16,10 @@
     --fw-thin: 300;
     --fw-regular: 500;
     --fw-bold: 700;
-    --bg-color: rgb(34, 116, 209);
-    --bg-color-alt: rgba(16, 94, 184, 1.0);
+    --fw-xbold: 800;
+    --bg-color: rgba(16, 94, 184, 1.0);
+    --bg-color-fade: rgba(16, 94, 184, 0.6);
+    --bg-color-alt: rgb(34, 116, 209);
     --bg-actColor:rgba(117, 116, 116, 0.4);
     --bg-button: rgba(189, 3, 3, 0.61);
     --bg-buttonAlt: rgba(255, 44, 44, 0.61);
@@ -43,7 +45,7 @@ body{
     background-color: var(--bg-color);
     display: grid;
     grid-template-columns: minmax(min-content, 225px) 1fr;
-    grid-template-rows: 1fr minmax(min-content, 40px);
+    grid-template-rows: 1fr calc(var(--fs-xlarge)*1.8);
     grid-template-areas:
         "nav main"
         "nav aside";
@@ -78,6 +80,9 @@ img{
 nav{
     grid-area: nav;
     display: grid;
+    background-color: var(--bg-color-alt);
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
     gap: var(--fs-xlarge);
     grid-template-rows: min-content 1fr min-content;
     padding: var(--fs-small) var(--fs-regular);
@@ -86,46 +91,70 @@ nav{
 
 .navMain{
     display: grid;
+    width: max-content;
     gap: calc(var(--fs-small)/2);
 }
 
 .navProjects{
     display: grid;
-    gap: var(--fs-small);
+    gap: var(--fs-large);
     overflow-y: auto;
 }
 
-ul.projectTitle{
-    font-weight: var(--fw-bold);
-}
-
-li.projectTask{
+.projectTask{
     font-weight: var(--fw-thin);
 }
 
-.projectTitle{
+.projectTask:hover{
+    font-weight: var(--fw-bold);
+}
+
+ul,
+li{
+    transition: all 0.04s ease-in-out;
+}
+
+li.navItem:hover{
+    scale: 1.15;
+    transform: translateX(5px);
+    font-weight: var(--fw-xbold);
+    cursor: pointer;
+}
+
+.projectListInfo{
     display: grid;
     gap: calc(var(--fs-small)/5);
 }
 
+.projectTitle{
+    width: max-content;
+    font-weight: var(--fw-bold);
+    background-image: linear-gradient(white, white);
+    background-size: 0% 0.1em;
+    background-position-y: 100%;
+    background-position-x: 0%;
+    background-repeat: no-repeat;
+    transition: background-size 0.2s ease-in-out;
+    }
+
+.projectTitle:hover,
+.projectTitle:focus,
+.projectTitle:active {
+    background-size: 100% 0.1em;
+}
+
 aside{
     grid-area: aside;
-    /* display: flex;
-    padding: calc(var(--fs-small)/2) var(--fs-small);
-    justify-content: center; */
-    height: calc(var(--fs-xlarge)/2);
+    background-color: transparent;
     position: relative;
-    border-top: 2px solid white;
-    z-index: 11;
 }
 
 .newTask{
     position: absolute;
     transform: translate(-50%, -50%);
-    top: 0;
+    top: 50%;
     left: 50%;
     height: var(--fs-large);
-    z-index: 21;
 }
 
 aside::before{
@@ -135,27 +164,11 @@ aside::before{
     border-radius: 50%;
     height: var(--fs-xxlarge);
     width: var(--fs-xxlarge);
-    background-color: var(--bg-color);
+    background-color: var(--bg-color-alt);
     position: absolute;
     transform: translate(-50%, -50%);
-    top: 0;
+    top: 50%;
     left: 50%;
-    z-index: 6;
-}
-
-aside::after{
-    display: inline-block;
-    content: "";
-    border: 2px solid white;
-    border-radius: 50%;
-    height: calc(var(--fs-xxlarge)*1.25);
-    width: calc(var(--fs-xxlarge)*1.25);
-    background-color: var(--bg-color);
-    position: absolute;
-    transform: translate(-50%, -50%);
-    top: 0;
-    left: 50%;
-    z-index: 5;
 }
 
 aside,
@@ -170,7 +183,7 @@ aside,
 
 main{
     grid-area: main;
-    background-color: var(--bg-color-alt);
+    background-color: var(--bg-color);
     display: flex;
     align-items: center;
     justify-content: center;
