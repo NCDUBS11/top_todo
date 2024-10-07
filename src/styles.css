@@ -52,8 +52,8 @@ body{
 }
 
 img{
-    height: calc(var(--fs-small)*1.5);
-    filter: invert();
+    height: calc(var(--fs-small)*1.6);
+    -webkit-user-drag: none;
 }
 
 ::-webkit-scrollbar{
@@ -86,7 +86,7 @@ nav{
     gap: var(--fs-xlarge);
     grid-template-rows: min-content 1fr min-content;
     padding: var(--fs-small) var(--fs-regular);
-    padding-bottom: calc(var(--fs-small)/2);
+    padding-bottom: calc(var(--fs-small)/1.5);
 }
 
 .navMain{
@@ -103,10 +103,16 @@ nav{
 
 .projectTask{
     font-weight: var(--fw-thin);
+    width: max-content;
 }
 
 .projectTask:hover{
     font-weight: var(--fw-bold);
+    cursor: pointer;
+}
+
+.projectTask:active{
+    scale: 0.975;
 }
 
 ul,
@@ -115,8 +121,13 @@ li{
 }
 
 li.navItem:hover{
-    scale: 1.15;
-    transform: translateX(5px);
+    scale: 1.075;
+    font-weight: var(--fw-xbold);
+    cursor: pointer;
+}
+
+li.navItem:active{
+    scale: 1;
     font-weight: var(--fw-xbold);
     cursor: pointer;
 }
@@ -143,32 +154,48 @@ li.navItem:hover{
     background-size: 100% 0.1em;
 }
 
+.projectTitle:active{
+    scale: 0.975;
+}
+
+.icon,
+.newTask{
+    transition: all 0.02s ease-in-out;
+}
+
+.icon:hover{
+    scale: 1.1;
+    cursor: pointer;
+}
+.icon:active{
+    scale: 1;
+}
+
+.newTask:hover{
+    scale: 1.05;
+    cursor: pointer;
+}
+.newTask:active{
+    border-width: 3px;
+    scale: 1;
+}
+
 aside{
     grid-area: aside;
-    background-color: transparent;
     position: relative;
+    margin-block-end: calc(var(--fs-small)/1.5);
 }
 
 .newTask{
     position: absolute;
-    transform: translate(-50%, -50%);
-    top: 50%;
+    transform: translate(-50%, 0%);
+    bottom: 0%;
     left: 50%;
-    height: var(--fs-large);
-}
-
-aside::before{
-    display: inline-block;
-    content: "";
+    height: var(--fs-xxlarge);
+    padding: calc(var(--fs-small)/2.25);
+    background-color: var(--bg-color-alt);
     border: 2px solid white;
     border-radius: 50%;
-    height: var(--fs-xxlarge);
-    width: var(--fs-xxlarge);
-    background-color: var(--bg-color-alt);
-    position: absolute;
-    transform: translate(-50%, -50%);
-    top: 50%;
-    left: 50%;
 }
 
 aside,
