@@ -183,7 +183,7 @@ li.navItem:active{
 aside{
     grid-area: aside;
     position: relative;
-    margin-block-end: calc(var(--fs-small)/1.5);
+    margin-block-end: calc(var(--fs-small)/1);
 }
 
 .newTask{
@@ -217,7 +217,20 @@ main{
     overflow-y: auto;
 }
 
-.noteArea{
-    width: 30ch;
-    text-align: center;
+form{
+    display: grid;
+    gap: var(--fs-small);
+}
+
+.formControl{
+    position: relative;
+    display: grid;
+    gap: var(--fs-small);
+}
+
+.error{
+    height: var(--fs-regular);
+    position: absolute;
+    left: -20px;
+    bottom: 0;
 }
