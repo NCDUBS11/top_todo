@@ -7,7 +7,7 @@
     --ff-regular: "Roboto", 'Times New Roman', serif;
     --ff-alt: "PT Serif", "Roboto", 'Times New Roman', serif;
     --fc-regular: rgb(236, 236, 236);
-    --fc-error: rgb(255, 0, 0);
+    --fc-error: #ff0000;
     --fs-small: clamp(0.75rem, 0.5rem + 1.5vw, 1rem);
     --fs-regular: clamp(1rem, 0.5rem + 2vw, 1.2rem);
     --fs-large: clamp(1.5rem, 0.6rem + 2.5vw, 1.75rem);    
@@ -214,23 +214,95 @@ main{
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow-y: auto;
+    overflow-y: scrollu;
 }
 
-form{
+fieldset{
     display: grid;
-    gap: var(--fs-small);
+    gap: calc(var(--fs-small)/1.5);
+}
+
+input,
+textarea{
+padding: calc(var(--fs-small)/4) calc(var(--fs-small)/4);
+border-radius: 5px;
+color: black;
+}
+
+::placeholder{
+    color: darkgrey;
+}
+
+
+legend{
+    margin-block-end: var(--fs-small);
+    font-size: var(--fs-large);
+    font-weight: var(--fw-bold);
+    text-align: center;
 }
 
 .formControl{
     position: relative;
     display: grid;
-    gap: var(--fs-small);
+    gap: calc(var(--fs-small)/8);
 }
 
-.error{
+button{
+    transition: all 0.02s ease-in-out;
+}
+
+button:hover{
+    scale: 1.0;
+    cursor: pointer;
+}
+
+button:active{
+    scale: 0.985;
+}
+
+.submitBtn{
+    margin-block-start: var(--fs-small);
+    padding-block: calc(var(--fs-small)/2);
+    border: 2px solid grey;
+    border-radius: 15px;
+    color: black;
+}
+
+.cancelBtn{
+    position: absolute;
+    bottom: calc(var(--fs-regular)*-1 - 5px);
+    left:0;
+    font-size: var(--fs-small);
+    color: var(--fc-regular);
+    text-decoration: underline;
+    background: none;
+}
+
+.cancelBtn:hover{
+    scale: 1.05;
+    cursor: pointer;
+}
+.cancelBtn:active{
+    border-width: 3px;
+    scale: 1;
+}
+
+.error
+{
     height: var(--fs-regular);
+    display:none;
     position: absolute;
     left: -20px;
-    bottom: 0;
+    bottom: calc(var(--fs-small)/4);
+    color: var(--fc-error);
+}
+
+.taskDescription .error{
+    top: calc(var(--fs-regular) - calc(var(--fs-small)/8 * -1));
+
+}
+
+.submitNewTask .error{
+    left: 0;
+    top: -5px;
 }
