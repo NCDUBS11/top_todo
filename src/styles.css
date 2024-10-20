@@ -252,7 +252,7 @@ button{
 }
 
 button:hover{
-    scale: 1.0;
+    scale: 1.05;
     cursor: pointer;
 }
 
@@ -280,6 +280,7 @@ button:active{
 
 .cancelBtn:hover{
     scale: 1.05;
+    font-weight: var(--fw-bold);
     cursor: pointer;
 }
 .cancelBtn:active{

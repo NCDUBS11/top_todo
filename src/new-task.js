@@ -1,4 +1,3 @@
-
 export default function newTask(){
 
     const mainArea = document.getElementById("main");
@@ -11,7 +10,7 @@ export default function newTask(){
                     <div class="formControl taskName">
                         <label for="taskName">Task:</label>
                         <input type="text" name="taskName" id="taskName" class="taskName"
-                        placeholder="Task Title">
+                        placeholder="Project Title::Task Name">
                             <img id="error" class="error" src="icons/xmark-svgrepo-com.png" alt="">
                     </div>
                     <div class="formControl taskDueDate">
@@ -34,4 +33,18 @@ export default function newTask(){
             </form>
         </div>
         `;
+
+
+        const newTaskForm = document.getElementById("form");
+        const submitBtn = document.getElementById("submitBtn");
+        const cancelBtn = document.getElementById("cancelBtn");
+        const taskName = document.getElementById("cancelBtn");
+        const taskDueDate = document.getElementById("cancelBtn");
+        const taskDescription = document.getElementById("cancelBtn");
+
+        cancelBtn.addEventListener("click", ()=>{
+            newTaskForm.reset();
+            mainArea.innerHTML = "";
+        })
+
 };
