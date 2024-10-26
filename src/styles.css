@@ -135,7 +135,12 @@ li.navItem:active{
 .projectListInfo{
     display: grid;
     gap: calc(var(--fs-small)/5);
-    height: min-content;
+}
+
+.projectBlock{
+    height: fit-content;
+    display: grid;
+    gap: calc(var(--fs-small)/4);
 }
 
 .projectTitle{
