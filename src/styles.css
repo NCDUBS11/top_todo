@@ -304,12 +304,17 @@ button:active{
     color: var(--fc-error);
 }
 
+.mark{
+    background: url(./icons/xmark-svgrepo-com.png);
+}
+
 .taskDescription .error{
     top: calc(var(--fs-regular) - calc(var(--fs-small)/8 * -1));
 
 }
 
-.submitNewTask .error{
+.submitNewTask .error,
+.submitNewProject .error{
     left: 0;
     top: -5px;
 }

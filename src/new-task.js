@@ -2,7 +2,7 @@ export default function newTask(){
 
     const mainArea = document.getElementById("main");
 
-        mainArea.innerHTML = `
+        mainArea.innerHTML =`
             <div id="newTaskMenu" class="newTaskMenu">
             <form action="" id="form" class="form">
                 <fieldset>
@@ -11,18 +11,18 @@ export default function newTask(){
                         <label for="taskName">Task:</label>
                         <input type="text" name="taskName" id="taskName" class="taskName"
                         placeholder="Project Title::Task Name">
-                            <img id="error" class="error" src="icons/xmark-svgrepo-com.png" alt="">
+                        <img id="error" class="error" src="./icons/xmark-svgrepo-com.png" alt="">
                     </div>
                     <div class="formControl taskDueDate">
                         <label for="">Due:</label>
                         <input type="date" name="taskDueDate" id="taskDueDate" class="taskDueDate">
-                        <img id="error" class="error" src="icons/xmark-svgrepo-com.png" alt="">
+                        <img id="error" class="error" src="./icons/xmark-svgrepo-com.png" alt="">
                     </div>
                     <div class="formControl taskDescription">
                         <label for="taskDescription">Description:</label>
                         <textarea type="text" rows="5" name="taskDescription" id="taskDescription" class="taskDescription"
                         placeholder="Task Description"></textarea>
-                        <img id="error" class="error" src="icons/xmark-svgrepo-com.png" alt="">
+                        <img id="error" class="error" src="./icons/xmark-svgrepo-com.png" alt="">
                     </div>
                     <div class="formControl submitNewTask">
                         <button id="submitBtn" class="submitBtn" type="button" onclick="">Submit</button>
