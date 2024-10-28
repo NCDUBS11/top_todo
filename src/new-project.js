@@ -11,13 +11,11 @@ export default function newProject(){
                         <label for="projectName">Project Title:</label>
                         <input type="text" name="projectName" id="projectName" class="projectName"
                         placeholder="Project Title">
-                        <img id="error" class="error" src="./icons/xmark-svgrepo-com.png" alt="">
                     </div>
                     <div class="formControl projectDescription">
                         <label for="projectDescription">Description:</label>
                         <textarea type="text" rows="5" name="projectDescription" id="projectDescription" class="taskDescription"
                         placeholder="Project Description"></textarea>
-                        <img id="error" class="error" src="./icons/xmark-svgrepo-com.png" alt="">
                     </div>
                     <div class="formControl submitNewProject">
                         <button id="submitBtn" class="submitBtn" type="button" onclick="">Submit</button>

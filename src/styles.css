@@ -24,6 +24,7 @@
     --bg-button: rgba(189, 3, 3, 0.61);
     --bg-buttonAlt: rgba(255, 44, 44, 0.61);
     --brdr-color: rgb(221, 221, 221);
+    --pseudo-display: none;
 }
 
 *{
@@ -230,9 +231,10 @@ fieldset{
 
 input,
 textarea{
-padding: calc(var(--fs-small)/4) calc(var(--fs-small)/4);
-border-radius: 5px;
-color: black;
+    position: relative;
+    padding: calc(var(--fs-small)/4) calc(var(--fs-small)/4);
+    border-radius: 5px;
+    color: black;
 }
 
 ::placeholder{
@@ -294,7 +296,18 @@ button:active{
     scale: 1;
 }
 
-.error
+input::before,
+textarea::before{
+    position: absolute;
+    color: var(--fc-error);
+    height: 40px;
+    width: 5px;
+    left: -20px;
+    transform: translateY(50%);
+
+}
+
+/* .error      *****To be used for input pseudo elem error bars*****
 {
     height: var(--fs-regular);
     display:none;
@@ -302,19 +315,21 @@ button:active{
     left: -20px;
     bottom: calc(var(--fs-small)/4);
     color: var(--fc-error);
-}
+} */
 
-.mark{
-    background: url(./icons/xmark-svgrepo-com.png);
-}
-
-.taskDescription .error{
+ /* .taskDescription .error{
     top: calc(var(--fs-regular) - calc(var(--fs-small)/8 * -1));
-
 }
+                    ********************* */
 
-.submitNewTask .error,
-.submitNewProject .error{
+.error{
+    height: var(--fs-regular);
+    display:block;
+    position: absolute;
     left: 0;
     top: -5px;
+    bottom: calc(var(--fs-small)/4);
+    color: var(--fc-error);
 }
+
+
