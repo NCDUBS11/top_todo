@@ -11,16 +11,18 @@ export default function newProject(){
                         <label for="projectName">Project Title:</label>
                         <input type="text" name="projectName" id="projectName" class="projectName"
                         placeholder="Project Title">
+                        <div id="error" class="error"></div>
                     </div>
                     <div class="formControl projectDescription">
                         <label for="projectDescription">Description:</label>
                         <textarea type="text" rows="5" name="projectDescription" id="projectDescription" class="taskDescription"
                         placeholder="Project Description"></textarea>
+                        <div id="error" class="error"></div>
                     </div>
                     <div class="formControl submitNewProject">
                         <button id="submitBtn" class="submitBtn" type="button" onclick="">Submit</button>
                         <button id="cancelBtn" class="cancelBtn" type="button" onclick="">Cancel</button>
-                        <p id="error" class="error">'error desc'</p>
+                        <p id="errorDescription" class="errorDescription">'error desc'</p>
                     </div>
                 </fieldset>
             </form>

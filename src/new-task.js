@@ -11,20 +11,23 @@ export default function newTask(){
                         <label for="taskName">Task:</label>
                         <input type="text" name="taskName" id="taskName" class="taskName"
                         placeholder="Project Title::Task Name">
+                        <div id="error" class="error"></div>
                     </div>
                     <div class="formControl taskDueDate">
                         <label for="">Due:</label>
                         <input type="date" name="taskDueDate" id="taskDueDate" class="taskDueDate">
+                        <div id="error" class="error"></div>
                     </div>
                     <div class="formControl taskDescription">
                         <label for="taskDescription">Description:</label>
                         <textarea type="text" rows="5" name="taskDescription" id="taskDescription" class="taskDescription"
                         placeholder="Task Description"></textarea>
+                        <div id="error" class="error"></div>
                     </div>
                     <div class="formControl submitNewTask">
                         <button id="submitBtn" class="submitBtn" type="button" onclick="">Submit</button>
                         <button id="cancelBtn" class="cancelBtn" type="button" onclick="">Cancel</button>
-                        <p id="error" class="error">'error desc'</p>
+                        <p id="errorDescription" class="errorDescription">'error desc'</p>
                     </div>
                 </fieldset>
             </form>

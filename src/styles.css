@@ -296,35 +296,21 @@ button:active{
     scale: 1;
 }
 
-input::before,
-textarea::before{
-    position: absolute;
-    color: var(--fc-error);
-    height: 40px;
-    width: 5px;
-    left: -20px;
-    transform: translateY(50%);
-
-}
-
-/* .error      *****To be used for input pseudo elem error bars*****
-{
-    height: var(--fs-regular);
-    display:none;
-    position: absolute;
-    left: -20px;
-    bottom: calc(var(--fs-small)/4);
-    color: var(--fc-error);
-} */
-
- /* .taskDescription .error{
-    top: calc(var(--fs-regular) - calc(var(--fs-small)/8 * -1));
-}
-                    ********************* */
-
 .error{
+    display: none;
+    content: '';
+    background-color: red;
+    position: absolute;
+    color: var(--fc-error);
+    height: calc(100% - var(--fs-regular) - var(--fs-small)/8);
+    width: 3px;
+    top: calc(var(--fs-regular) + var(--fs-small)/8);
+    left: -8px;
+}
+
+.errorDescription{
+    display: none;
     height: var(--fs-regular);
-    display:block;
     position: absolute;
     left: 0;
     top: -5px;
