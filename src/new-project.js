@@ -36,8 +36,6 @@ export default function newProject(){
         const cancelBtn = document.getElementById("cancelBtn");
         const projectName = document.getElementById("projectName");
         const projectNameError = document.getElementById("projectNameSection").querySelector("#error");
-        const projectDescription = document.getElementById("projectDescription");
-        const projectDescriptionError = document.getElementById("projectDescriptionSection").querySelector("#error");
         const errorDescription = document.getElementById("errorDescription");
 
         cancelBtn.addEventListener("click", ()=>{
@@ -45,15 +43,19 @@ export default function newProject(){
             mainArea.innerHTML = "";
         })
 
-        projectName.addEventListener("input", (e)=>{
-            console.log(e.currentTarget.id);
-            console.log(e.currentTarget.value);
-            if(validate.checkProjectName(e.currentTarget.value)){
+        projectName.addEventListener("keyup", (e)=>{
+            const fieldValue = e.currentTarget.value;
+            const fieldID = e.currentTarget.id;
+            if(validate.checkProjectName(fieldValue)){
                 validate.clearError();
                 return 1;
             }
+            else if(fieldValue == ""){
+                validate.setError(fieldID, "empty");
+                return 0;
+            }
             else{
-                validate.setError(e.currentTarget.id, "charLimit");
+                validate.setError(fieldID, "charLimit");
                 return 0;
             }
         })

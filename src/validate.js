@@ -3,14 +3,15 @@ export function clearError(){
     const errors = document.querySelectorAll("#error");
     errors.forEach(error => {
         error.style.display="none";
-        return 1;
     });
+    errorDescription.style.display="none";
+    return 1;
 }
 
 
 export function checkProjectName(name){
-    let cleanName = name.trim().length;
-    if(cleanName > 0 && cleanName < 24){
+    let cleanName = name.trim();
+    if(cleanName.length > 0 && cleanName.length < 24){
         return true;
     }
     else{
@@ -18,9 +19,11 @@ export function checkProjectName(name){
     }
 }
 
-export function setError(element, type){
-    document.getElementById(element).style.display="block";
-    switch (type) {
+export function setError(elementID, errorType){
+    const errorElement = document.getElementById(elementID).parentNode.querySelector("#error");
+    errorElement.style.display="block";
+    errorDescription.style.display="block";
+    switch (errorType) {
         case "empty":
             errorDescription.innerText = "Field can't be empty!";
             break;
