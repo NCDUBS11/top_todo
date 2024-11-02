@@ -12,6 +12,7 @@ if (process.env.NODE_ENV !== "production") {
 const newTaskBtn = document.getElementById("newTask");
 const newProjectBtn = document.getElementById("newProject");
 
+let projectList = [];
 
 newTaskBtn.addEventListener("click", ()=>{
     newTask();
