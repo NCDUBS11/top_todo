@@ -1,7 +1,6 @@
 import "./styles.css";
 import newTask from "./new-task";
 import newProject from "./new-project";
-import * as validate from "./validate";
 import { compareAsc, format, formatDistance, formatDistanceToNow } from "date-fns";
 //import { function name } from "./jsFile";
 //import odinImage from "./odin.png";

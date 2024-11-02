@@ -1,3 +1,5 @@
+
+import * as validate from "./validate";
 export default function newProject(){
 
     const mainArea = document.getElementById("main");
@@ -7,15 +9,15 @@ export default function newProject(){
             <form action="" id="form" class="form">
                 <fieldset>
                     <legend>New Project</legend>
-                    <div class="formControl projectName">
+                    <div id="projectNameSection" class="formControl">
                         <label for="projectName">Project Title:</label>
                         <input type="text" name="projectName" id="projectName" class="projectName"
                         placeholder="Project Title">
                         <div id="error" class="error"></div>
                     </div>
-                    <div class="formControl projectDescription">
+                    <div id="projectDescriptionSection" class="formControl">
                         <label for="projectDescription">Description:</label>
-                        <textarea type="text" rows="5" name="projectDescription" id="projectDescription" class="taskDescription"
+                        <textarea type="text" rows="5" name="projectDescription" id="projectDescription" class="projectDescription"
                         placeholder="Project Description"></textarea>
                         <div id="error" class="error"></div>
                     </div>
@@ -33,11 +35,27 @@ export default function newProject(){
         const submitBtn = document.getElementById("submitBtn");
         const cancelBtn = document.getElementById("cancelBtn");
         const projectName = document.getElementById("projectName");
+        const projectNameError = document.getElementById("projectNameSection").querySelector("#error");
         const projectDescription = document.getElementById("projectDescription");
+        const projectDescriptionError = document.getElementById("projectDescriptionSection").querySelector("#error");
+        const errorDescription = document.getElementById("errorDescription");
 
         cancelBtn.addEventListener("click", ()=>{
             newProjectForm.reset();
             mainArea.innerHTML = "";
+        })
+
+        projectName.addEventListener("input", (e)=>{
+            console.log(e.currentTarget.id);
+            console.log(e.currentTarget.value);
+            if(validate.checkProjectName(e.currentTarget.value)){
+                validate.clearError();
+                return 1;
+            }
+            else{
+                validate.setError(e.currentTarget.id, "charLimit");
+                return 0;
+            }
         })
 
 

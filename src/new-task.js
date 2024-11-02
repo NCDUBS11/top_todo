@@ -1,3 +1,5 @@
+
+import * as validate from "./validate";
 export default function newTask(){
 
     const mainArea = document.getElementById("main");
