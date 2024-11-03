@@ -1,5 +1,6 @@
 
 import * as validate from "./validate";
+import {projectList} from "./index";
 export default function newProject(){
 
     const mainArea = document.getElementById("main");
@@ -22,14 +23,15 @@ export default function newProject(){
                     <div id="error" class="error"></div>
                 </div>
                 <div class="formControl submitNewProject">
-                    <button id="submitBtn" class="submitBtn" type="button" onclick="">Submit</button>
-                    <button id="cancelBtn" class="cancelBtn" type="button" onclick="">Cancel</button>
+                    <button id="submitBtn" class="submitBtn" type="button">Submit</button>
+                    <button id="cancelBtn" class="cancelBtn" type="button">Cancel</button>
                     <p id="errorDescription" class="errorDescription">'error desc'</p>
                 </div>
             </fieldset>
         </form>
     </div>
     `;
+    
 
     const newProjectForm = document.getElementById("form");
     const submitBtn = document.getElementById("submitBtn");
@@ -38,20 +40,16 @@ export default function newProject(){
     const projectDescription = document.getElementById("projectDescription");
     const errorDescription = document.getElementById("errorDescription");
 
+    function Project(name, description, date) {
+        this.name = name;
+        this.description = description;
+        this.date = date;
+        this.tasks = [];
+    }
+
     cancelBtn.addEventListener("click", ()=>{
         newProjectForm.reset();
         mainArea.innerHTML = "";
-    })
-
-    submitBtn.addEventListener("click", ()=>{
-        const name = projectName.value.trim();
-        const description = projectDescription.value.trim();
-
-        const project = new Project(name, description);
-
-        projectList.push(project);
-        newProjectForm.reset();
-
     })
 
     projectName.addEventListener("keyup", (e)=>{
@@ -69,15 +67,52 @@ export default function newProject(){
         }
         else{
             validate.setError(fieldID, "charLimit");
+            submitBtn.disable;
             return 0;
         }
     })
 
-    function Project(name, description) {
-    this.name = name;
-    this.description = description;
-    const date = new date();
-    let tasks = [];
-}
+
+    submitBtn.addEventListener("click", (e)=>{
+        e.preventDefault();
+
+        const navColumn = document.getElementById("navCol navColProjects");    
+
+        if(projectName.value.trim() == ""){
+            validate.setError(projectName.id, "empty");
+            return 0;
+        }
+
+        const name = projectName.value.trim();
+        const description = projectDescription.value.trim();
+        let date = new Date();
+
+        const project = new Project(name, description, date);
+
+        const blockDiv = document.createElement("div");
+        const titleDiv = document.createElement("div");
+        const listUl = document.createElement("ul");
+
+        blockDiv.setAttribute("id", "projectBlock");
+        blockDiv.setAttribute("class", "projectBlock");
+        titleDiv.setAttribute("id", "projectTitle");
+        titleDiv.setAttribute("class", "projectTitle");
+        listUl.setAttribute("id", "projectListInfo");
+        listUl.setAttribute("class", "projectListInfo");
+
+        titleDiv.innerText = project.name;
+
+        blockDiv.appendChild(titleDiv);
+        titleDiv.appendChild(listUl);
+
+        navColumn.appendChild(blockDiv);
+
+        projectList.push(project);
+        newProjectForm.reset();
+
+    })
+
+
+
 
 };

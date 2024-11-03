@@ -9,10 +9,10 @@ if (process.env.NODE_ENV !== "production") {
     console.log("Looks like we are in development mode!");
 };
 
+export let projectList = [];
+
 const newTaskBtn = document.getElementById("newTask");
 const newProjectBtn = document.getElementById("newProject");
-
-let projectList = [];
 
 newTaskBtn.addEventListener("click", ()=>{
     newTask();
