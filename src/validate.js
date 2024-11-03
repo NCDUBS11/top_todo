@@ -34,13 +34,16 @@ export function setError(elementID, errorType){
             errorDescription.innerText = "Can only use '::' once";
             break;
         case "projectEmpty":
-            errorDescription.innerText = "Must give project name if using '::'.";
+            errorDescription.innerText = "'::' requires a project name.";
             break;
         case "charLimit":
             errorDescription.innerText = "There is a 23 character limit.";
             break;
         case "dateInvalid":
             errorDescription.innerText = "That date has already passed!";
+            break;
+        case "projectExists":
+            errorDescription.innerText = "Title already in use.";
             break;
         default:
             errorDescription.innerText = "game is broke, call santa"; 

@@ -1,6 +1,5 @@
 
 import * as validate from "./validate";
-import {projectList} from "./index";
 export default function newProject(){
 
     const mainArea = document.getElementById("main");
@@ -36,9 +35,9 @@ export default function newProject(){
     const newProjectForm = document.getElementById("form");
     const submitBtn = document.getElementById("submitBtn");
     const cancelBtn = document.getElementById("cancelBtn");
-    const projectName = document.getElementById("projectName");
     const projectDescription = document.getElementById("projectDescription");
     const errorDescription = document.getElementById("errorDescription");
+    let projectList = [];
 
     function Project(name, description, date) {
         this.name = name;
@@ -76,13 +75,20 @@ export default function newProject(){
     submitBtn.addEventListener("click", (e)=>{
         e.preventDefault();
 
-        const navColumn = document.getElementById("navCol navColProjects");    
-
+        const navColumn = document.getElementById("navCol navColProjects"); 
+        let projectName = document.getElementById("projectName"); 
+        
         if(projectName.value.trim() == ""){
             validate.setError(projectName.id, "empty");
             return 0;
-        }
+            };
 
+        for(let i = 0; i<projectList.length; i++){
+            if(projectName.value.trim().toLowerCase() == projectList[i].name.trim().toLowerCase()){
+                validate.setError(projectName.id, "projectExists");
+                return 0;
+            }}  
+      
         const name = projectName.value.trim();
         const description = projectDescription.value.trim();
         let date = new Date();
