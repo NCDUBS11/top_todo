@@ -1,12 +1,16 @@
 
 import * as validate from "./validate";
+import * as populate from "./populate";
+
+export let taskList = [];
+
 export default function newTask(){
 
     const mainArea = document.getElementById("main");
 
         mainArea.innerHTML =`
             <div id="newTaskMenu" class="newTaskMenu">
-            <form action="" id="form" class="form">
+            <form action="" id="form" class="form" onkeydown="if(event.keyCode === 13){return false;}">
                 <fieldset>
                     <legend>New Task</legend>
                     <div class="formControl taskName">
@@ -43,6 +47,7 @@ export default function newTask(){
         const taskName = document.getElementById("cancelBtn");
         const taskDueDate = document.getElementById("cancelBtn");
         const taskDescription = document.getElementById("cancelBtn");
+
 
         cancelBtn.addEventListener("click", ()=>{
             newTaskForm.reset();

@@ -1,12 +1,16 @@
 
 import * as validate from "./validate";
+import * as populate from "./populate";
+
+export let projectList = [];
+
 export default function newProject(){
 
     const mainArea = document.getElementById("main");
 
     mainArea.innerHTML = `
     <div id="newProjectMenu" class="newProjectMenu">
-        <form action="" id="form" class="form">
+        <form action="" id="form" class="form" onkeydown="if(event.keyCode === 13){return false;}">
             <fieldset>
                 <legend>New Project</legend>
                 <div id="projectNameSection" class="formControl">
@@ -37,7 +41,6 @@ export default function newProject(){
     const cancelBtn = document.getElementById("cancelBtn");
     const projectDescription = document.getElementById("projectDescription");
     const errorDescription = document.getElementById("errorDescription");
-    let projectList = [];
 
     function Project(name, description, date) {
         this.name = name;
@@ -56,17 +59,17 @@ export default function newProject(){
         const fieldID = e.currentTarget.id;
         if(validate.checkProjectName(fieldValue)){
             validate.clearError();
-            submitBtn.enable;
+            submitBtn.disabled = false;
             return 1;
         }
         else if(fieldValue == ""){
             validate.setError(fieldID, "empty");
-            submitBtn.disable;
+            submitBtn.disabled = true;
             return 0;
         }
         else{
             validate.setError(fieldID, "charLimit");
-            submitBtn.disable;
+            submitBtn.disabled = true;
             return 0;
         }
     })
@@ -75,7 +78,6 @@ export default function newProject(){
     submitBtn.addEventListener("click", (e)=>{
         e.preventDefault();
 
-        const navColumn = document.getElementById("navCol navColProjects"); 
         let projectName = document.getElementById("projectName"); 
         
         if(projectName.value.trim() == ""){
@@ -95,25 +97,27 @@ export default function newProject(){
 
         const project = new Project(name, description, date);
 
-        const blockDiv = document.createElement("div");
-        const titleDiv = document.createElement("div");
-        const listUl = document.createElement("ul");
+        // const blockDiv = document.createElement("div");
+        // const titleDiv = document.createElement("div");
+        // const listUl = document.createElement("ul");
 
-        blockDiv.setAttribute("id", "projectBlock");
-        blockDiv.setAttribute("class", "projectBlock");
-        titleDiv.setAttribute("id", "projectTitle");
-        titleDiv.setAttribute("class", "projectTitle");
-        listUl.setAttribute("id", "projectListInfo");
-        listUl.setAttribute("class", "projectListInfo");
+        // blockDiv.setAttribute("id", "projectBlock");
+        // blockDiv.setAttribute("class", "projectBlock");
+        // titleDiv.setAttribute("id", "projectTitle");
+        // titleDiv.setAttribute("class", "projectTitle");
+        // listUl.setAttribute("id", "projectListInfo");
+        // listUl.setAttribute("class", "projectListInfo");
 
-        titleDiv.innerText = project.name;
+        // titleDiv.innerText = project.name;
 
-        blockDiv.appendChild(titleDiv);
-        titleDiv.appendChild(listUl);
+        // blockDiv.appendChild(titleDiv);
+        // titleDiv.appendChild(listUl);
 
-        navColumn.appendChild(blockDiv);
+            //visible html updates will occur via populate.js
+        // navColumn.appendChild(blockDiv);
 
         projectList.push(project);
+        populate.navColumnRefresh();
         newProjectForm.reset();
 
     })

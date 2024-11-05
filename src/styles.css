@@ -276,6 +276,11 @@ button:active{
     color: black;
 }
 
+.submitBtn:disabled{
+    background-color: buttonface;
+    border: 2px solid rgb(172, 42, 42);
+}
+
 .cancelBtn{
     position: absolute;
     bottom: calc(var(--fs-regular)*-1 - 5px);
