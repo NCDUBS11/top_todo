@@ -9,7 +9,7 @@ export function clearError(){
 }
 
 
-export function checkProjectName(name){
+export function checkName(name){
     let cleanName = name.trim();
     if(cleanName.length > 0 && cleanName.length < 24){
         return true;
@@ -28,7 +28,7 @@ export function setError(elementID, errorType){
             errorDescription.innerText = "Field can't be empty!";
             break;
         case "symbolInvalid":
-            errorDescription.innerText = "Don't use '::' when naming projects.";
+            errorDescription.innerText = "Can't use '::' in name.";
             break;
         case "symbolLimit":
             errorDescription.innerText = "Can only use '::' once";
@@ -40,7 +40,7 @@ export function setError(elementID, errorType){
             errorDescription.innerText = "There is a 23 character limit.";
             break;
         case "dateInvalid":
-            errorDescription.innerText = "That date has already passed!";
+            errorDescription.innerText = "Must provide future date.";
             break;
         case "projectExists":
             errorDescription.innerText = "Title already in use.";

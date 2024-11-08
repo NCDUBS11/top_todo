@@ -1,6 +1,7 @@
 
 import * as validate from "./validate";
 import * as populate from "./populate";
+import { compareAsc, format, formatDate, formatDistance, formatDistanceToNow } from "date-fns";
 
 export let taskList = [];
 
@@ -8,50 +9,124 @@ export default function newTask(){
 
     const mainArea = document.getElementById("main");
 
-        mainArea.innerHTML =`
-            <div id="newTaskMenu" class="newTaskMenu">
-            <form action="" id="form" class="form" onkeydown="if(event.keyCode === 13){return false;}">
-                <fieldset>
-                    <legend>New Task</legend>
-                    <div class="formControl taskName">
-                        <label for="taskName">Task:</label>
-                        <input type="text" name="taskName" id="taskName" class="taskName"
-                        placeholder="Project Title::Task Name">
-                        <div id="error" class="error"></div>
-                    </div>
-                    <div class="formControl taskDueDate">
-                        <label for="">Due:</label>
-                        <input type="date" name="taskDueDate" id="taskDueDate" class="taskDueDate">
-                        <div id="error" class="error"></div>
-                    </div>
-                    <div class="formControl taskDescription">
-                        <label for="taskDescription">Description:</label>
-                        <textarea type="text" rows="5" name="taskDescription" id="taskDescription" class="taskDescription"
-                        placeholder="Task Description"></textarea>
-                        <div id="error" class="error"></div>
-                    </div>
-                    <div class="formControl submitNewTask">
-                        <button id="submitBtn" class="submitBtn" type="button" onclick="">Submit</button>
-                        <button id="cancelBtn" class="cancelBtn" type="button" onclick="">Cancel</button>
-                        <p id="errorDescription" class="errorDescription">'error desc'</p>
-                    </div>
-                </fieldset>
-            </form>
-        </div>
-        `;
+    mainArea.innerHTML =`
+        <div id="newTaskMenu" class="newTaskMenu">
+        <form action="" id="form" class="form" onkeydown="if(event.keyCode === 13){return false;}">
+            <fieldset>
+                <legend>New Task</legend>
+                <div class="formControl taskName">
+                    <label for="taskName">Task:</label>
+                    <input type="text" name="taskName" id="taskName" class="taskName"
+                    placeholder="Project Title::Task Name">
+                    <div id="error" class="error"></div>
+                </div>
+                <div class="formControl taskDueDate">
+                    <label for="">Due:</label>
+                    <input type="date" name="taskDueDate" id="taskDueDate" class="taskDueDate">
+                    <div id="error" class="error"></div>
+                </div>
+                <div class="formControl taskDescription">
+                    <label for="taskDescription">Description:</label>
+                    <textarea type="text" rows="5" name="taskDescription" id="taskDescription" class="taskDescription"
+                    placeholder="Task Description"></textarea>
+                    <div id="error" class="error"></div>
+                </div>
+                <div class="formControl submitNewTask">
+                    <button id="submitBtn" class="submitBtn" type="button" onclick="">Submit</button>
+                    <button id="cancelBtn" class="cancelBtn" type="button" onclick="">Cancel</button>
+                    <p id="errorDescription" class="errorDescription">'error desc'</p>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    `;
+
+    const newTaskForm = document.getElementById("form");
+    const submitBtn = document.getElementById("submitBtn");
+    const cancelBtn = document.getElementById("cancelBtn");
+    const taskName = document.getElementById("taskName");
+    const taskDueDate = document.getElementById("taskDueDate");
+    const taskDescription = document.getElementById("taskDescription");
+
+    function Task(name, description, date,dueDate){
+        this.name = name;
+        this.description = description;
+        this.date = date;
+        this.dueDate = dueDate;
+    }
+
+    cancelBtn.addEventListener("click", ()=>{
+        newTaskForm.reset();
+        mainArea.innerHTML = "";
+    })
+
+    taskName.addEventListener("keyup", (e)=>{
+        let fieldValue = e.currentTarget.value;
+        const fieldID = e.currentTarget.id;
+        const regex = /(::)/g;
+        let checkSym = [...fieldValue.matchAll(regex)];
+
+        if(checkSym.length > 1){
+            validate.setError(fieldID, "symbolLimit");
+            submitBtn.disabled = true;
+            return 0;
+        }        
+        else if(validate.checkName(fieldValue)){
+            validate.clearError();
+            submitBtn.disabled = false;
+            return 1;
+        }
+        else if(fieldValue == ""){
+            validate.setError(fieldID, "empty");
+            submitBtn.disabled = true;
+            return 0;
+        }
+        else{
+            validate.setError(fieldID, "charLimit");
+            submitBtn.disabled = true;
+            return 0;
+        }
+    });
+
+    taskDueDate.addEventListener("input", (e)=>{
+        let fieldValue = e.currentTarget.value;
+        const fieldID = e.currentTarget.id;
+        let currentDate = formatDate(new Date(), 'yyyy-MM-dd');
+
+        if(compareAsc(fieldValue, currentDate) != 1){
+            validate.setError(fieldID, "dateInvalid");
+            submitBtn.disabled = true;
+            return 0;
+        };
+    });
 
 
-        const newTaskForm = document.getElementById("form");
-        const submitBtn = document.getElementById("submitBtn");
-        const cancelBtn = document.getElementById("cancelBtn");
-        const taskName = document.getElementById("cancelBtn");
-        const taskDueDate = document.getElementById("cancelBtn");
-        const taskDescription = document.getElementById("cancelBtn");
 
+    submitBtn.addEventListener("click", (e)=>{
+        e.preventDefault();
 
-        cancelBtn.addEventListener("click", ()=>{
-            newTaskForm.reset();
-            mainArea.innerHTML = "";
-        })
+        let projectName = document.getElementById("projectName"); 
+        
+        if(projectName.value.trim() == ""){
+            validate.setError(projectName.id, "empty");
+            return 0;
+            };
+
+        for(let i = 0; i<projectList.length; i++){
+            if(projectName.value.trim().toLowerCase() == projectList[i].name.trim().toLowerCase()){
+                validate.setError(projectName.id, "projectExists");
+                return 0;
+            }}  
+      
+        const name = projectName.value.trim();
+        const description = projectDescription.value.trim();
+        let date = new Date();
+
+        const project = new Project(name, description, date);
+
+        projectList.push(project);
+        populate.navColumnRefresh();
+        newProjectForm.reset();
+    })
 
 };

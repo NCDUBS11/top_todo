@@ -34,7 +34,6 @@ export default function newProject(){
         </form>
     </div>
     `;
-    
 
     const newProjectForm = document.getElementById("form");
     const submitBtn = document.getElementById("submitBtn");
@@ -55,9 +54,17 @@ export default function newProject(){
     })
 
     projectName.addEventListener("keyup", (e)=>{
-        const fieldValue = e.currentTarget.value;
+        let fieldValue = e.currentTarget.value;
         const fieldID = e.currentTarget.id;
-        if(validate.checkProjectName(fieldValue)){
+        const regex = /(::)/g;
+        let checkSym = [...fieldValue.matchAll(regex)];
+
+        if(checkSym.length != 0){
+            validate.setError(fieldID, "symbolInvalid");
+            submitBtn.disabled = true;
+            return 0;
+        }        
+        else if(validate.checkName(fieldValue)){
             validate.clearError();
             submitBtn.disabled = false;
             return 1;
@@ -72,8 +79,8 @@ export default function newProject(){
             submitBtn.disabled = true;
             return 0;
         }
-    })
 
+    })
 
     submitBtn.addEventListener("click", (e)=>{
         e.preventDefault();
@@ -93,36 +100,13 @@ export default function newProject(){
       
         const name = projectName.value.trim();
         const description = projectDescription.value.trim();
-        let date = new Date();
+        let date = formatDate(new Date(), 'yyyy-MM-dd');
 
         const project = new Project(name, description, date);
-
-        // const blockDiv = document.createElement("div");
-        // const titleDiv = document.createElement("div");
-        // const listUl = document.createElement("ul");
-
-        // blockDiv.setAttribute("id", "projectBlock");
-        // blockDiv.setAttribute("class", "projectBlock");
-        // titleDiv.setAttribute("id", "projectTitle");
-        // titleDiv.setAttribute("class", "projectTitle");
-        // listUl.setAttribute("id", "projectListInfo");
-        // listUl.setAttribute("class", "projectListInfo");
-
-        // titleDiv.innerText = project.name;
-
-        // blockDiv.appendChild(titleDiv);
-        // titleDiv.appendChild(listUl);
-
-            //visible html updates will occur via populate.js
-        // navColumn.appendChild(blockDiv);
 
         projectList.push(project);
         populate.navColumnRefresh();
         newProjectForm.reset();
-
     })
-
-
-
 
 };
