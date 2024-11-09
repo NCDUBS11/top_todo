@@ -5,6 +5,8 @@ import { compareAsc, format, formatDate, formatDistance, formatDistanceToNow } f
 
 export let taskList = [];
 
+
+
 export default function newTask(){
 
     const mainArea = document.getElementById("main");
@@ -98,6 +100,9 @@ export default function newTask(){
             submitBtn.disabled = true;
             return 0;
         };
+        validate.clearError();
+        submitBtn.disabled = false;
+        return 1;
     });
 
 
@@ -105,28 +110,29 @@ export default function newTask(){
     submitBtn.addEventListener("click", (e)=>{
         e.preventDefault();
 
-        let projectName = document.getElementById("projectName"); 
+        let taskName = document.getElementById("taskName"); 
         
-        if(projectName.value.trim() == ""){
-            validate.setError(projectName.id, "empty");
+        if(taskName.value.trim() == ""){
+            validate.setError(taskName.id, "empty");
+            submitBtn.disabled = true;
             return 0;
             };
 
-        for(let i = 0; i<projectList.length; i++){
-            if(projectName.value.trim().toLowerCase() == projectList[i].name.trim().toLowerCase()){
-                validate.setError(projectName.id, "projectExists");
-                return 0;
-            }}  
+        // for(let i = 0; i<projectList.length; i++){
+        //     if(projectName.value.trim().toLowerCase() == projectList[i].name.trim().toLowerCase()){
+        //         validate.setError(projectName.id, "projectExists");
+        //         return 0;
+        //     }}  
       
-        const name = projectName.value.trim();
-        const description = projectDescription.value.trim();
-        let date = new Date();
+        // const name = projectName.value.trim();
+        // const description = projectDescription.value.trim();
+        // let date = new Date();
 
-        const project = new Project(name, description, date);
+        // const project = new Project(name, description, date);
 
-        projectList.push(project);
-        populate.navColumnRefresh();
-        newProjectForm.reset();
+        // projectList.push(project);
+        // populate.navColumnRefresh();
+        // newProjectForm.reset();
     })
 
 };
