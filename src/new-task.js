@@ -61,6 +61,8 @@ export default function newTask(){
 
         
     taskMenuInputs.forEach((input)=>{
+        input.addEventListener("focusout", (e)=>{validate.checkTaskInput(e);});
+
         input.addEventListener("keyup", (e)=>{validate.checkTaskInput(e);})})
   
 

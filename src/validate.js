@@ -1,6 +1,6 @@
 import {taskList} from "./new-task";
 import {projectList} from "./new-project";
-import { compareAsc } from "date-fns";
+import { compareAsc, format, formatDate, isMatch } from "date-fns";
 
 export function checkProjectInput(e){
     let fieldValue = e.currentTarget.value;
@@ -42,26 +42,29 @@ export function checkTaskInput(e){
         case "taskName":
             let nameTrim = fieldValue.trim();
             if(checkSymbol(checkSym) == 0){
-                if(checkTaskName(nameTrim)){
+                if(checkTaskName(nameTrim, fieldID)){
                     return 1;
-                };}
+                }
+                return 0;}
+            else  if(checkSymbol(checkSym) == -1){
+                setError(fieldID, "symbolLimit")
+                submitBtn.disabled = true;
                 return 0;
-            
+            }
 
-            break;
+            
         case "taskDueDate":
             if(compareDates(fieldValue,currentDate) == -1 || compareDates(fieldValue,currentDate) == 0){
                 setError(fieldID, "dateInvalid")
                 submitBtn.disabled = true;
-                return 0;
-            }
+                return 0;}
+
             else{
                 clearError();
                 submitBtn.disabled = false;
-                return 1;}
-}}
+                return 1;}}}
 
-function checkTaskName(nameTrim){
+function checkTaskName(nameTrim, fieldID){
         if(checkEmpty(nameTrim)){
             setError(fieldID, "empty");
             submitBtn.disabled = true;
@@ -73,8 +76,7 @@ function checkTaskName(nameTrim){
         else{
             clearError();
             submitBtn.disabled = false;
-            return 1;}
-}
+            return 1;}}
 
 
 function checkLength(nameTrim){
@@ -140,6 +142,9 @@ export function setError(elementID, errorType){
             break;
         case "dateInvalid":
             errorDescription.innerText = "Must provide future date.";
+            break;
+        case "dateIncomplete":
+            errorDescription.innerText = "Must complete date field.";
             break;
         case "projectExists":
             errorDescription.innerText = "Title already in use.";
