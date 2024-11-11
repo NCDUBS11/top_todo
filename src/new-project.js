@@ -3,7 +3,15 @@ import * as validate from "./validate";
 import * as populate from "./populate";
 import { compareAsc, format, formatDate, formatDistance, formatDistanceToNow } from "date-fns";
 
-export let projectList = [];
+/*Create initial project folder and add to projectList*/
+
+const generalProjectObj={
+    name:"Unassigned Tasks",
+    description:"Tasks that haven't been assigned a project reside here",
+    date:formatDate(new Date(), 'yyyy-MM-dd'),
+    tasks:["Create a project"]}
+
+export let projectList = [generalProjectObj];
 
 /*New Project() - Provides user with new-project form field. Checks input field(s) and provides errors. Will create new project object, add to projectList var, update UI and reset form.*/
 
@@ -49,17 +57,25 @@ export default function newProject(){
         this.date = date;
         this.tasks = [];}
 
+
     cancelBtn.addEventListener("click", ()=>{
         newProjectForm.reset();
         mainArea.innerHTML = "";})
 
-    projectName.addEventListener("keyup", (e)=>{validate.checkProjectInput(e)});
+    projectName.addEventListener("keyup", (e)=>{
+        validate.checkProjectInput(e)});
 
     submitBtn.addEventListener("click", (e)=>{
         e.preventDefault(); 
-      
         const name = projectName.value.trim();
         const description = projectDescription.value.trim();
+
+        if(validate.checkEmpty(name)){
+            validate.setError("projectName", "empty");
+            submitBtn.disabled = true;
+            return 0;
+        }
+      
         let date = formatDate(new Date(), 'yyyy-MM-dd');
 
         const project = new Project(name, description, date);

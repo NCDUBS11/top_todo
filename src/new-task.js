@@ -3,16 +3,15 @@ import * as validate from "./validate";
 import * as populate from "./populate";
 import { compareAsc, format, formatDate, formatDistance, formatDistanceToNow } from "date-fns";
 
+//this may not be needed?
 export let taskList = [];
 
 
-
 export default function newTask(){
-
     const mainArea = document.getElementById("main");
 
-    mainArea.innerHTML =`
-        <div id="newTaskMenu" class="newTaskMenu">
+    mainArea.innerHTML =
+    `<div id="newTaskMenu" class="newTaskMenu">
         <form action="" id="form" class="form" onkeydown="if(event.keyCode === 13){return false;}">
             <fieldset>
                 <legend>New Task</legend>
@@ -40,70 +39,45 @@ export default function newTask(){
                 </div>
             </fieldset>
         </form>
-    </div>
-    `;
+    </div>`;
 
     const newTaskForm = document.getElementById("form");
-    const submitBtn = document.getElementById("submitBtn");
-    const cancelBtn = document.getElementById("cancelBtn");
     const taskName = document.getElementById("taskName");
     const taskDueDate = document.getElementById("taskDueDate");
     const taskDescription = document.getElementById("taskDescription");
+    const taskMenuInputs = document.querySelectorAll("input");
+    const submitBtn = document.getElementById("submitBtn");
+    const cancelBtn = document.getElementById("cancelBtn");
 
     function Task(name, description, date,dueDate){
         this.name = name;
         this.description = description;
         this.date = date;
-        this.dueDate = dueDate;
-    }
+        this.dueDate = dueDate;}
 
     cancelBtn.addEventListener("click", ()=>{
         newTaskForm.reset();
-        mainArea.innerHTML = "";
-    })
+        mainArea.innerHTML = "";})
 
-    taskName.addEventListener("keyup", (e)=>{
-        let fieldValue = e.currentTarget.value;
-        const fieldID = e.currentTarget.id;
-        const regex = /(::)/g;
-        let checkSym = [...fieldValue.matchAll(regex)];
+        
+    taskMenuInputs.forEach((input)=>{
+        input.addEventListener("keyup", (e)=>{validate.checkTaskInput(e);})})
+  
 
-        if(checkSym.length > 1){
-            validate.setError(fieldID, "symbolLimit");
-            submitBtn.disabled = true;
-            return 0;
-        }        
-        // else if(validate.checkName(fieldValue)){
-        //     validate.clearError();
-        //     submitBtn.disabled = false;
-        //     return 1;
-        // }
-        else if(fieldValue == ""){
-            validate.setError(fieldID, "empty");
-            submitBtn.disabled = true;
-            return 0;
-        }
-        else{
-            validate.setError(fieldID, "charLimit");
-            submitBtn.disabled = true;
-            return 0;
-        }
-    });
+    // taskDueDate.addEventListener("input", (e)=>{
+    //     let fieldValue = e.currentTarget.value;
+    //     const fieldID = e.currentTarget.id;
+    //     let currentDate = formatDate(new Date(), 'yyyy-MM-dd');
 
-    taskDueDate.addEventListener("input", (e)=>{
-        let fieldValue = e.currentTarget.value;
-        const fieldID = e.currentTarget.id;
-        let currentDate = formatDate(new Date(), 'yyyy-MM-dd');
-
-        if(compareAsc(fieldValue, currentDate) != 1){
-            validate.setError(fieldID, "dateInvalid");
-            submitBtn.disabled = true;
-            return 0;
-        };
-        validate.clearError();
-        submitBtn.disabled = false;
-        return 1;
-    });
+    //     if(compareAsc(fieldValue, currentDate) != 1){
+    //         validate.setError(fieldID, "dateInvalid");
+    //         submitBtn.disabled = true;
+    //         return 0;
+    //     };
+    //     validate.clearError();
+    //     submitBtn.disabled = false;
+    //     return 1;
+    // });
 
 
 
