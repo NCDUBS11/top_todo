@@ -3,13 +3,11 @@ import {projectList} from "./new-project";
 
 
 export function navColumnRefresh(){
-
     const navColumn = document.getElementById("navCol navColProjects"); 
 
     navColumn.innerHTML = "";
-    
-    for(let i=0; i<projectList.length; i++){
 
+    for(let i=0; i<projectList.length; i++){
         const blockDiv = document.createElement("div");
         const titleDiv = document.createElement("div");
         const listUl = document.createElement("ul");
@@ -25,8 +23,4 @@ export function navColumnRefresh(){
 
         navColumn.appendChild(blockDiv);
         blockDiv.appendChild(titleDiv);
-        titleDiv.appendChild(listUl);
-
-    }
-    
-}
+        titleDiv.appendChild(listUl);}}

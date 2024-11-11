@@ -1,16 +1,18 @@
 
 import * as validate from "./validate";
 import * as populate from "./populate";
+import { compareAsc, format, formatDate, formatDistance, formatDistanceToNow } from "date-fns";
 
 export let projectList = [];
 
-export default function newProject(){
+/*New Project() - Provides user with new-project form field. Checks input field(s) and provides errors. Will create new project object, add to projectList var, update UI and reset form.*/
 
+export default function newProject(){
     const mainArea = document.getElementById("main");
 
-    mainArea.innerHTML = `
-    <div id="newProjectMenu" class="newProjectMenu">
-        <form action="" id="form" class="form" onkeydown="if(event.keyCode === 13){return false;}">
+    mainArea.innerHTML =
+    `<div id="newProjectMenu" class="newProjectMenu">
+        <form id="form" class="form" onkeydown="if(event.keyCode === 13){return false;}">
             <fieldset>
                 <legend>New Project</legend>
                 <div id="projectNameSection" class="formControl">
@@ -32,71 +34,29 @@ export default function newProject(){
                 </div>
             </fieldset>
         </form>
-    </div>
-    `;
+    </div>`;
 
     const newProjectForm = document.getElementById("form");
-    const submitBtn = document.getElementById("submitBtn");
-    const cancelBtn = document.getElementById("cancelBtn");
+    const projectName = document.getElementById("projectName");
     const projectDescription = document.getElementById("projectDescription");
     const errorDescription = document.getElementById("errorDescription");
+    const submitBtn = document.getElementById("submitBtn");
+    const cancelBtn = document.getElementById("cancelBtn");
 
     function Project(name, description, date) {
         this.name = name;
         this.description = description;
         this.date = date;
-        this.tasks = [];
-    }
+        this.tasks = [];}
 
     cancelBtn.addEventListener("click", ()=>{
         newProjectForm.reset();
-        mainArea.innerHTML = "";
-    })
+        mainArea.innerHTML = "";})
 
-    projectName.addEventListener("keyup", (e)=>{
-        let fieldValue = e.currentTarget.value;
-        const fieldID = e.currentTarget.id;
-        const regex = /(::)/g;
-        let checkSym = [...fieldValue.matchAll(regex)];
-
-        if(checkSym.length != 0){
-            validate.setError(fieldID, "symbolInvalid");
-            submitBtn.disabled = true;
-            return 0;
-        }        
-        else if(validate.checkName(fieldValue)){
-            validate.clearError();
-            submitBtn.disabled = false;
-            return 1;
-        }
-        else if(fieldValue == ""){
-            validate.setError(fieldID, "empty");
-            submitBtn.disabled = true;
-            return 0;
-        }
-        else{
-            validate.setError(fieldID, "charLimit");
-            submitBtn.disabled = true;
-            return 0;
-        }
-
-    })
+    projectName.addEventListener("keyup", (e)=>{validate.checkProjectInput(e)});
 
     submitBtn.addEventListener("click", (e)=>{
-        e.preventDefault();
-
-        let projectName = document.getElementById("projectName"); 
-        
-        if(projectName.value.trim() == ""){
-            validate.setError(projectName.id, "empty");
-            return 0;
-            };
-
-        for(let i = 0; i<projectList.length; i++){
-            if(projectName.value.trim().toLowerCase() == projectList[i].name.trim().toLowerCase()){
-                validate.setError(projectName.id, "projectExists");
-                return 0;
-            }}  
+        e.preventDefault(); 
       
         const name = projectName.value.trim();
         const description = projectDescription.value.trim();
@@ -106,7 +66,5 @@ export default function newProject(){
 
         projectList.push(project);
         populate.navColumnRefresh();
-        newProjectForm.reset();
-    })
-
+        newProjectForm.reset();})
 };

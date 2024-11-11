@@ -73,11 +73,11 @@ export default function newTask(){
             submitBtn.disabled = true;
             return 0;
         }        
-        else if(validate.checkName(fieldValue)){
-            validate.clearError();
-            submitBtn.disabled = false;
-            return 1;
-        }
+        // else if(validate.checkName(fieldValue)){
+        //     validate.clearError();
+        //     submitBtn.disabled = false;
+        //     return 1;
+        // }
         else if(fieldValue == ""){
             validate.setError(fieldID, "empty");
             submitBtn.disabled = true;
