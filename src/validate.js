@@ -31,6 +31,27 @@ export function checkProjectInput(e){
         submitBtn.disabled = false;
         return 1;}}
 
+//error object to hold task or date keys with associated error arrays. Pairs will be added or modified or deleted from checkTaskInput().
+//taskErrors will be checked by checkTaskErrors() and then clearError() will clear errors and enable submit.
+export let taskErrors = {};
+
+export function checkTaskErrors(){
+    let objLength = Object.keys(taskErrors).length;
+
+    if(objLength == 0){
+        clearError();
+        submitBtn.disabled = false;
+        return 1;
+    }
+    else{
+        let firstError = Object.entries(taskErrors)[0];
+
+        setError(firstError[0], firstError[1]);
+        submitBtn.disabled = true;
+        return 0;
+    }
+}
+
 export function checkTaskInput(e){
     let fieldValue = e.currentTarget.value;
     const fieldID = e.currentTarget.id;
@@ -48,6 +69,7 @@ export function checkTaskInput(e){
                 return 0;}
             else  if(checkSymbol(checkSym) == -1){
                 setError(fieldID, "symbolLimit")
+                taskErrors[fieldID] = "symbolLimit";
                 submitBtn.disabled = true;
                 return 0;
             }
@@ -55,26 +77,31 @@ export function checkTaskInput(e){
             
         case "taskDueDate":
             if(compareDates(fieldValue,currentDate) == -1 || compareDates(fieldValue,currentDate) == 0){
-                setError(fieldID, "dateInvalid")
+                setError(fieldID, "dateInvalid");
+                taskErrors[fieldID] = "dateInvalid";
                 submitBtn.disabled = true;
                 return 0;}
 
             else{
                 clearError();
+                delete taskErrors[fieldID];
                 submitBtn.disabled = false;
                 return 1;}}}
 
 function checkTaskName(nameTrim, fieldID){
         if(checkEmpty(nameTrim)){
             setError(fieldID, "empty");
+            taskErrors[fieldID] = "empty";
             submitBtn.disabled = true;
             return 0;}
         else if(checkLength(nameTrim)){
             setError(fieldID, "charLimit")
+            taskErrors[fieldID] = "charLimit";
             submitBtn.disabled = true;
         return 0;}
         else{
             clearError();
+            delete taskErrors[fieldID];
             submitBtn.disabled = false;
             return 1;}}
 

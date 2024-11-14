@@ -63,7 +63,8 @@ export default function newTask(){
     taskMenuInputs.forEach((input)=>{
         input.addEventListener("focusout", (e)=>{validate.checkTaskInput(e);});
 
-        input.addEventListener("keyup", (e)=>{validate.checkTaskInput(e);})})
+        input.addEventListener("keyup", (e)=>{
+            validate.checkTaskInput(e);})})
   
 
     // taskDueDate.addEventListener("input", (e)=>{
@@ -85,14 +86,7 @@ export default function newTask(){
 
     submitBtn.addEventListener("click", (e)=>{
         e.preventDefault();
-
-        let taskName = document.getElementById("taskName"); 
-        
-        if(taskName.value.trim() == ""){
-            validate.setError(taskName.id, "empty");
-            submitBtn.disabled = true;
-            return 0;
-            };
+        validate.checkTaskErrors();
 
         // for(let i = 0; i<projectList.length; i++){
         //     if(projectName.value.trim().toLowerCase() == projectList[i].name.trim().toLowerCase()){
