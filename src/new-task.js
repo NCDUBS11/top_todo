@@ -49,11 +49,13 @@ export default function newTask(){
     const submitBtn = document.getElementById("submitBtn");
     const cancelBtn = document.getElementById("cancelBtn");
 
+
     function Task(name, description, date,dueDate){
         this.name = name;
         this.description = description;
         this.date = date;
         this.dueDate = dueDate;}
+
 
     cancelBtn.addEventListener("click", ()=>{
         newTaskForm.reset();
@@ -61,48 +63,27 @@ export default function newTask(){
 
         
     taskMenuInputs.forEach((input)=>{
-        input.addEventListener("focusout", (e)=>{validate.checkTaskInput(e);});
+        input.addEventListener("focusout", (e)=>{
+            validate.checkTaskInput(e);});
 
         input.addEventListener("keyup", (e)=>{
             validate.checkTaskInput(e);})})
-  
-
-    // taskDueDate.addEventListener("input", (e)=>{
-    //     let fieldValue = e.currentTarget.value;
-    //     const fieldID = e.currentTarget.id;
-    //     let currentDate = formatDate(new Date(), 'yyyy-MM-dd');
-
-    //     if(compareAsc(fieldValue, currentDate) != 1){
-    //         validate.setError(fieldID, "dateInvalid");
-    //         submitBtn.disabled = true;
-    //         return 0;
-    //     };
-    //     validate.clearError();
-    //     submitBtn.disabled = false;
-    //     return 1;
-    // });
-
 
 
     submitBtn.addEventListener("click", (e)=>{
         e.preventDefault();
         validate.checkTaskErrors();
-
-        // for(let i = 0; i<projectList.length; i++){
-        //     if(projectName.value.trim().toLowerCase() == projectList[i].name.trim().toLowerCase()){
-        //         validate.setError(projectName.id, "projectExists");
-        //         return 0;
-        //     }}  
+  
       
-        // const name = projectName.value.trim();
-        // const description = projectDescription.value.trim();
+        // const name = taskName.value.trim();
+        // const description = taskDescription.value.trim();
         // let date = new Date();
 
-        // const project = new Project(name, description, date);
+        // const task = new Task(taskName, taskDescription, date, taskDueDate);
 
-        // projectList.push(project);
+        // **PROJECT** append task (task);
         // populate.navColumnRefresh();
-        // newProjectForm.reset();
+        // newTaskForm.reset();
     })
 
 };

@@ -60,14 +60,50 @@ export function checkTaskInput(e){
     let currentDate = formatDate(new Date(), 'yyyy-MM-dd');
 
     switch (fieldID) {
+
         case "taskName":
             let nameTrim = fieldValue.trim();
+
             if(checkSymbol(checkSym) == 0){
                 if(checkTaskName(nameTrim, fieldID)){
                     return 1;
                 }
                 return 0;}
-            else  if(checkSymbol(checkSym) == -1){
+
+            else if(checkSymbol(checkSym) == 1){
+                let values = taskNameSplit(fieldValue);
+
+                if(checkExisting(values[0].toLowerCase())){
+                    setError(fieldID, "projectExists");
+                    taskErrors[fieldID] = "projectExists";
+                    submitBtn.disabled = true;
+                    return 0;}
+                
+                else if(checkEmpty(values[0])){
+                    setError(fieldID, "projectEmpty");
+                    taskErrors[fieldID] = "projectEmpty";
+                    submitBtn.disabled = true;
+                    return 0;}
+
+                else if(checkEmpty(values[1])){
+                    setError(fieldID, "empty");
+                    taskErrors[fieldID] = "empty";
+                    submitBtn.disabled = true;
+                    return 0;}
+
+                else if(checkLength(nameTrim)){
+                    setError(fieldID, "charLimit");
+                    taskErrors[fieldID] = "charLimit";
+                    submitBtn.disabled = true;
+                    return 0;}
+                
+                clearError();
+                delete taskErrors[fieldID];
+                submitBtn.disabled = false;
+                return 1;}
+            
+
+            else if(checkSymbol(checkSym) == -1){
                 setError(fieldID, "symbolLimit")
                 taskErrors[fieldID] = "symbolLimit";
                 submitBtn.disabled = true;
@@ -135,14 +171,25 @@ function checkExisting(cleanName){
             return 1;}} 
     return 0;}
 
+
 //Redundant, but date library naming for this didn't make sense to me. 
 //Compare the two dates and 
 //return 1 if the first date is after the second,
 //-1 if the first date is before the second 
 //or 0 if dates are equal.
 function compareDates(fieldValue, currentDate){
-    return compareAsc(fieldValue, currentDate);
-}
+    return compareAsc(fieldValue, currentDate);}
+
+
+function taskNameSplit(fieldValue){
+    let splitValues = fieldValue.split("::");
+    let cleanValues=[];
+
+    splitValues.forEach((item)=>{
+        item = item.trim();
+        cleanValues.push(item);})
+
+    return cleanValues;}
 
 
 export function setError(elementID, errorType){
