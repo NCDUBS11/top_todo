@@ -133,6 +133,10 @@ li.navItem:active{
     cursor: pointer;
 }
 
+.navItem.home{
+    margin-block-start: calc(var(--fs-small)/1.5);
+}
+
 .projectListInfo{
     display: grid;
     gap: calc(var(--fs-small)/5);
