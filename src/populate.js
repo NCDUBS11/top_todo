@@ -1,4 +1,3 @@
-import {taskList} from "./new-task";
 import {projectList} from "./new-project";
 
 
@@ -19,8 +18,17 @@ export function navColumnRefresh(){
         listUl.setAttribute("id", "projectListInfo");
         listUl.setAttribute("class", "projectListInfo");
 
+
         titleDiv.innerText = projectList[i].name;
+
+        projectList[i].tasks.forEach((task)=>{
+            const listLi = document.createElement("li");
+            listLi.setAttribute("id", "projectTask");
+            listLi.setAttribute("class", "projectTask");
+            listLi.innerText = task.name;
+            listUl.appendChild(listLi);
+        })
 
         navColumn.appendChild(blockDiv);
         blockDiv.appendChild(titleDiv);
-        titleDiv.appendChild(listUl);}}
+        blockDiv.appendChild(listUl);}}

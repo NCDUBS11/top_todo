@@ -1,10 +1,8 @@
 
 import * as validate from "./validate";
+import { Project, projectList } from "./new-project";
 import * as populate from "./populate";
 import { compareAsc, format, formatDate, formatDistance, formatDistanceToNow } from "date-fns";
-
-//this may not be needed?
-export let taskList = [];
 
 
 export default function newTask(){
@@ -42,9 +40,9 @@ export default function newTask(){
     </div>`;
 
     const newTaskForm = document.getElementById("form");
-    const taskName = document.getElementById("taskName");
-    const taskDueDate = document.getElementById("taskDueDate");
-    const taskDescription = document.getElementById("taskDescription");
+    // let taskName = document.getElementById("taskName");
+    // let taskDueDate = document.getElementById("taskDueDate");
+    // let taskDescription = document.getElementById("taskDescription");
     const taskMenuInputs = document.querySelectorAll("input");
     const submitBtn = document.getElementById("submitBtn");
     const cancelBtn = document.getElementById("cancelBtn");
@@ -73,17 +71,49 @@ export default function newTask(){
     submitBtn.addEventListener("click", (e)=>{
         e.preventDefault();
         validate.checkTaskErrors();
-  
-      
-        // const name = taskName.value.trim();
-        // const description = taskDescription.value.trim();
-        // let date = new Date();
 
-        // const task = new Task(taskName, taskDescription, date, taskDueDate);
+        let taskName = document.getElementById("taskName").value.trim();
+        let taskDueDate = document.getElementById("taskDueDate");
+        let taskDescription = document.getElementById("taskDescription").value.trim();
+        
+        let task;
+        let projExists = false;
+        let date = new Date();
+        const regex = /(::)/g;
+        let checkSym = [...taskName.matchAll(regex)];
+        
+        console.log(taskName);
+        console.log(checkSym.length);
 
-        // **PROJECT** append task (task);
-        // populate.navColumnRefresh();
-        // newTaskForm.reset();
+        if(validate.checkSymbol(checkSym) == 0){
+                task = new Task(taskName, taskDescription, date, taskDueDate);
+
+                projectList.forEach((project)=>{
+                    if(project.name == "General Tasks"){
+                        project.tasks.push(task);
+                        return 1;}})} 
+
+
+        if(validate.checkSymbol(checkSym) == 1){
+            const cleanValues = validate.taskNameSplit(taskName);
+            taskName = cleanValues[1];
+            const projectName = cleanValues[0];
+            task = new Task(taskName, taskDescription, date, taskDueDate);
+
+            projectList.forEach((project)=>{
+                if(project.name.toLowerCase() == projectName.toLowerCase()){
+                    project.tasks.push(task);
+                    projExists = true;
+                    return 1;}})
+                
+            if(!projExists){
+                let project = new Project(projectName, "", date);
+                project.tasks.push(task);
+                projectList.push(project);}}
+        
+        populate.navColumnRefresh();
+        newTaskForm.reset();
     })
+
 
 };

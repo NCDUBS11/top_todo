@@ -6,14 +6,20 @@ import { compareAsc, format, formatDate, formatDistance, formatDistanceToNow } f
 /*Create initial project folder and add to projectList*/
 
 const generalProjectObj={
-    name:"Unassigned Tasks",
+    name:"General Tasks",
     description:"Tasks that haven't been assigned a project reside here",
     date:formatDate(new Date(), 'yyyy-MM-dd'),
-    tasks:["Create a project"]}
+    tasks:[]}
 
 export let projectList = [generalProjectObj];
 
 /*New Project() - Provides user with new-project form field. Checks input field(s) and provides errors. Will create new project object, add to projectList var, update UI and reset form.*/
+
+export function Project(name, description, date) {
+    this.name = name;
+    this.description = description;
+    this.date = date;
+    this.tasks = [];}
 
 export default function newProject(){
     const mainArea = document.getElementById("main");
@@ -51,11 +57,11 @@ export default function newProject(){
     const submitBtn = document.getElementById("submitBtn");
     const cancelBtn = document.getElementById("cancelBtn");
 
-    function Project(name, description, date) {
-        this.name = name;
-        this.description = description;
-        this.date = date;
-        this.tasks = [];}
+    // function Project(name, description, date) {
+    //     this.name = name;
+    //     this.description = description;
+    //     this.date = date;
+    //     this.tasks = [];}
 
 
     cancelBtn.addEventListener("click", ()=>{

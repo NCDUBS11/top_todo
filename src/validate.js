@@ -73,13 +73,13 @@ export function checkTaskInput(e){
             else if(checkSymbol(checkSym) == 1){
                 let values = taskNameSplit(fieldValue);
 
-                if(checkExisting(values[0].toLowerCase())){
-                    setError(fieldID, "projectExists");
-                    taskErrors[fieldID] = "projectExists";
-                    submitBtn.disabled = true;
-                    return 0;}
+                // if(checkExisting(values[0].toLowerCase())){
+                //     setError(fieldID, "projectExists");
+                //     taskErrors[fieldID] = "projectExists";
+                //     submitBtn.disabled = true;
+                //     return 0;}
                 
-                else if(checkEmpty(values[0])){
+                if(checkEmpty(values[0])){
                     setError(fieldID, "projectEmpty");
                     taskErrors[fieldID] = "projectEmpty";
                     submitBtn.disabled = true;
@@ -107,8 +107,7 @@ export function checkTaskInput(e){
                 setError(fieldID, "symbolLimit")
                 taskErrors[fieldID] = "symbolLimit";
                 submitBtn.disabled = true;
-                return 0;
-            }
+                return 0;}
 
             
         case "taskDueDate":
@@ -130,11 +129,13 @@ function checkTaskName(nameTrim, fieldID){
             taskErrors[fieldID] = "empty";
             submitBtn.disabled = true;
             return 0;}
+
         else if(checkLength(nameTrim)){
             setError(fieldID, "charLimit")
             taskErrors[fieldID] = "charLimit";
             submitBtn.disabled = true;
         return 0;}
+
         else{
             clearError();
             delete taskErrors[fieldID];
@@ -145,6 +146,7 @@ function checkTaskName(nameTrim, fieldID){
 function checkLength(nameTrim){
     if (nameTrim.length > 25){
         return 1;}
+
     else{
         return 0;}}
 
@@ -152,15 +154,18 @@ function checkLength(nameTrim){
 export function checkEmpty(nameTrim){
     if(nameTrim != ""){
         return 0;}
+
     else{
         return 1;}}
 
 
-function checkSymbol(checkSym){
+export function checkSymbol(checkSym){
         if(checkSym.length == 0){
             return 0;}
+
         else if(checkSym.length == 1){
             return 1;}
+
         else{
             return -1;}}
 
@@ -181,7 +186,7 @@ function compareDates(fieldValue, currentDate){
     return compareAsc(fieldValue, currentDate);}
 
 
-function taskNameSplit(fieldValue){
+export function taskNameSplit(fieldValue){
     let splitValues = fieldValue.split("::");
     let cleanValues=[];
 
