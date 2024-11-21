@@ -225,7 +225,6 @@ main{
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow-y: scrollu;
 }
 
 fieldset{
@@ -325,6 +324,45 @@ button:active{
     top: -5px;
     bottom: calc(var(--fs-small)/4);
     color: var(--fc-error);
+}
+
+.dashboard{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    height:100%;
+    width: 100%;
+    padding:var(--fs-regular);
+    gap: var(--fs-regular);
+}
+
+.dashUpcoming,
+.dashClock,
+.dashProjectRow{
+    border-radius: 25px;
+    padding: var(--fs-regular);
+}
+
+.dashTopRow{
+    display: flex;
+    flex-wrap: wrap-reverse;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: var(--fs-regular);
+
+}
+
+.dashUpcoming{
+    background-color: var(--bg-color-alt);
+    flex: 2;
+}
+
+.dashClock{
+    background-color: var(--bg-color-alt);
+    flex: 1;
+}
+
+.dashProjectRow{
+    background-color: var(--bg-color-alt);
 }
 
 
