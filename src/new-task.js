@@ -81,6 +81,12 @@ export default function newTask(){
         let date = new Date();
         const regex = /(::)/g;
         let checkSym = [...taskName.matchAll(regex)];
+
+        if(validate.checkEmpty(taskName)){
+            validate.setError("taskName", "empty");
+            submitBtn.disabled = true;
+            return 0;
+        }
         
         console.log(taskName);
         console.log(checkSym.length);

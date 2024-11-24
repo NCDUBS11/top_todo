@@ -343,8 +343,8 @@ button:active{
 }
 
 .dashTopRow{
-    display: flex;
-    flex-wrap: wrap-reverse;
+    display: grid;
+    grid-template-columns: 1fr min-content;
     align-items: center;
     justify-content: space-evenly;
     gap: var(--fs-regular);
@@ -397,7 +397,35 @@ button:active{
 
 .dashClock{
     background-color: var(--bg-color-alt);
-    flex: 1;
+    height: 100%;
+    aspect-ratio: 1;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    grid-template-columns: 1fr min-content;
+    grid-template-rows: 1fr min-content;
+    grid-template-areas:
+        "day year"
+        "month month"
+    ;
+
+}
+
+.clockMonth{
+    grid-area: month;
+    font-size: 6vh;
+}
+
+.clockDay{
+    grid-area: day;
+    font-size: 15vh;
+}
+
+.clockYear{
+    grid-area: year;
+    writing-mode:vertical-rl;
+    transform: rotate(180deg);
+    font-size: 5vh;
 }
 
 .dashProjectRow{
