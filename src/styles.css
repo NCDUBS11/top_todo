@@ -351,7 +351,8 @@ button:active{
 
 }
 
-.dashUpcoming{
+.dashUpcoming,
+.dashProjectList{
     height: 100%;
     background-color: var(--bg-color-alt);
     flex: 2;
@@ -360,33 +361,37 @@ button:active{
     grid-template-rows: min-content 1fr;
 }
 
-.upcomingTitle{
+.upcomingTitle,
+.projectListTitle{
     font-weight: var(--fw-bold);
 }
 
-.upcomingTaskArea{
+.upcomingTaskArea,
+.projectListArea{
     height: 100%;
-    overflow-y: hidden;
     background-color: var(--bg-color);
     border-radius: 20px;
     padding-inline: var(--fs-regular);
     padding-block: var(--fs-small);
 }
 
-.upcomingTaskBlock{
+.upcomingTaskBlock,
+.projectListBlock{
     display: flex;
     gap: var(--fs-regular);
     align-items: center;
     justify-content: space-between;
 }
 
-.upcomingTaskName:hover{
+.upcomingTaskName:hover,
+.projectListName:hover{
     font-weight: var(--fw-bold);
     scale:1.02;
     cursor: pointer;
 }
 
-.upcomingTaskName:active{
+.upcomingTaskName:active,
+.projectListName:active{
     scale: 0.975;
 }
 
