@@ -182,7 +182,7 @@ function checkExisting(cleanName){
 //return 1 if the first date is after the second,
 //-1 if the first date is before the second 
 //or 0 if dates are equal.
-function compareDates(fieldValue, currentDate){
+export function compareDates(fieldValue, currentDate){
     return compareAsc(fieldValue, currentDate);}
 
 
