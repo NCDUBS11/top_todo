@@ -423,14 +423,14 @@ button:active{
 
 .clockDay{
     grid-area: day;
-    font-size: 15vh;
+    font-size: 19vh;
 }
 
 .clockYear{
     grid-area: year;
     writing-mode:vertical-rl;
     transform: rotate(180deg);
-    font-size: 5vh;
+    font-size: 6vh;
 }
 
 .dashProjectRow{

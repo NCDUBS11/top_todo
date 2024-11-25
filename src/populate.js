@@ -1,5 +1,6 @@
 import {projectList} from "./new-project";
 import {compareDates} from "./validate";
+import {isValid, getDate, getMonth, getYear} from "date-fns";
 
 
 export function navColumnRefresh(){
@@ -36,13 +37,13 @@ export function navColumnRefresh(){
 
 
 export function dashboardRefresh(){
-    let upcomingTaskName = document.getElementById("upcomingTaskName");
-    let upcomingTaskDue = document.getElementById("upcomingTaskDue");
-    let projectListName = document.getElementById("projectListName");
-    let nextProjectListTask = document.getElementById("nextProjectListTask");
-    let clockDay = document.querySelector("#clock.clockDay");
-    let clockMonth = document.querySelector("#clock.clockMonth");
-    let clockYear = document.querySelector("#clock.clockYear");
+    // let upcomingTaskName = document.getElementById("upcomingTaskName");
+    // let upcomingTaskDue = document.getElementById("upcomingTaskDue");
+    // let projectListName = document.getElementById("projectListName");
+    // let nextProjectListTask = document.getElementById("nextProjectListTask");
+    // let clockDay = document.querySelector("#clock.clockDay");
+    // let clockMonth = document.querySelector("#clock.clockMonth");
+    // let clockYear = document.querySelector("#clock.clockYear");
 
 
     updateClock();
@@ -50,6 +51,12 @@ export function dashboardRefresh(){
 }
 
 function updateDashboard(){
+    let projectListArea = document.getElementById("projectListArea");
+    let upcomingTaskArea = document.getElementById("upcomingTaskArea");
+
+    projectListArea.innerHTML = "";
+    upcomingTaskArea.innerHTML = "";
+
     let tempProjectList = projectList;
     let tempTaskList;
 
@@ -64,10 +71,10 @@ function updateDashboard(){
 
         projectBlockDiv.setAttribute("id", "projectListBlock");
         projectBlockDiv.setAttribute("class", "projectListBlock");
-        projectNameDiv.setAttribute("id", "projectTitle");
-        projectNameDiv.setAttribute("class", "projectTitle");
-        projectNextTaskDiv.setAttribute("id", "projectListInfo");
-        projectNextTaskDiv.setAttribute("class", "projectListInfo");
+        projectNameDiv.setAttribute("id", "projectListName");
+        projectNameDiv.setAttribute("class", "projectListName");
+        projectNextTaskDiv.setAttribute("id", "nextProjectListTask");
+        projectNextTaskDiv.setAttribute("class", "nextProjectListTask");
 
 //Update the project list field and corresponding 'next task' in ui
 
@@ -82,15 +89,39 @@ function updateDashboard(){
 
 
         projectList[i].tasks.forEach((task)=>{
-            if(task.dueDate){
+            if(isValid(task.dueDate)){
+                console.log(`The dueDate was VALID. Due date = ${task.dueDate}.`);
                 tempTaskList.push(task);
             }
         })
 
-        navColumn.appendChild(projectBlockDiv);
         projectBlockDiv.appendChild(projectNameDiv);
         projectBlockDiv.appendChild(projectNextTaskDiv);
+        projectListArea.appendChild(projectBlockDiv);
+
     })
+
+    tempTaskList = sortDates(tempTaskList);
+
+    for(let i = tempTaskList.length-1; i>tempTaskList.length-6; i--){
+        const taskBlockDiv = document.createElement("div");
+        const taskNameDiv = document.createElement("div");
+        const taskDueDiv = document.createElement("div");
+
+        taskBlockDiv.setAttribute("id", "upcomingTaskBlock");
+        taskBlockDiv.setAttribute("class", "upcomingTaskBlock");
+        taskNameDiv.setAttribute("id", "upcomingTaskName");
+        taskNameDiv.setAttribute("class", "upcomingTaskName");
+        taskDueDiv.setAttribute("id", "upcomingTaskDue");
+        taskDueDiv.setAttribute("class", "upcomingTaskDue");
+
+        taskNameDiv.innerText = tempTaskList[i].name;
+        taskDueDiv.innerText = tempTaskList[i].dueDate;
+        
+        taskBlockDiv.appendChild(taskNameDiv);
+        taskBlockDiv.appendChild(taskDueDiv);
+        upcomingTaskArea.appendChild(taskBlockDiv);
+    }
 
     }
 
@@ -105,4 +136,58 @@ function sortDates(objectArray){
         }
       }
     } while (swapped);
+}
+
+function updateClock(){
+    let clockDay = document.querySelector("#clock.clockDay");
+    let clockMonth = document.querySelector("#clock.clockMonth");
+    let clockYear = document.querySelector("#clock.clockYear");
+
+    const date = newDate();
+
+    let day = getDate(date);
+    let month = getMonth(date);
+    let year = getYear(date);
+
+    clockDay.innerText = day;
+    clockYear.innerText = year;
+
+    switch(month){
+        case 0:
+            clockMonth.innerText = "January";
+            break;
+        case 1:
+            clockMonth.innerText = "February";
+            break;
+        case 2:
+            clockMonth.innerText = "March";
+            break;
+        case 3:
+            clockMonth.innerText = "April";
+            break;
+        case 4:
+            clockMonth.innerText = "May";
+            break;
+        case 5:
+            clockMonth.innerText = "June";
+            break;
+        case 6:
+            clockMonth.innerText = "July";
+            break;
+        case 7:
+            clockMonth.innerText = "August";
+            break;
+        case 8:
+            clockMonth.innerText = "September";
+            break;
+        case 9:
+            clockMonth.innerText = "October";
+            break;
+        case 10:
+            clockMonth.innerText = "November";
+            break;
+        case 11:
+            clockMonth.innerText = "December";
+            break;
+    }
 }

@@ -1,6 +1,7 @@
 import "./styles.css";
 import newTask from "./new-task";
 import newProject from "./new-project";
+import dashboardLoad from "./dashboard";
 import * as populate from "./populate";
 import { compareAsc, format, formatDistance, formatDistanceToNow } from "date-fns";
 //import { function name } from "./jsFile";
@@ -12,8 +13,14 @@ if (process.env.NODE_ENV !== "production") {
 
 const newTaskBtn = document.getElementById("newTask");
 const newProjectBtn = document.getElementById("newProject");
+const homeBtn = document.querySelector("#navItem.home");
 
 populate.navColumnRefresh();
+// dashboardLoad();
+
+homeBtn.addEventListener("click", ()=>{
+    dashboardLoad();
+});
 
 newTaskBtn.addEventListener("click", ()=>{
     newTask();
@@ -22,3 +29,4 @@ newTaskBtn.addEventListener("click", ()=>{
 newProjectBtn.addEventListener("click", ()=>{
     newProject();
 });
+
