@@ -73,7 +73,7 @@ export default function newTask(){
         validate.checkTaskErrors();
 
         let taskName = document.getElementById("taskName").value.trim();
-        let taskDueDate = document.getElementById("taskDueDate");
+        let taskDueDate = document.getElementById("taskDueDate").value;
         let taskDescription = document.getElementById("taskDescription").value.trim();
         
         let task;
@@ -87,9 +87,6 @@ export default function newTask(){
             submitBtn.disabled = true;
             return 0;
         }
-        
-        console.log(taskName);
-        console.log(checkSym.length);
 
         if(validate.checkSymbol(checkSym) == 0){
                 task = new Task(taskName, taskDescription, date, taskDueDate);

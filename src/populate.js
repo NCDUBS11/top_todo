@@ -58,7 +58,7 @@ function updateDashboard(){
     upcomingTaskArea.innerHTML = "";
 
     let tempProjectList = projectList;
-    let tempTaskList;
+    let tempTaskList = [];
 
     tempProjectList.sort((a, b) => {
         return a.name.localeCompare(b.name);
@@ -78,18 +78,19 @@ function updateDashboard(){
 
 //Update the project list field and corresponding 'next task' in ui
 
-        projectNameDiv.innerText = projectList[i].name;
+        projectNameDiv.innerText = project.name;
 
         if(project.tasks.length>0){
-            projectNextTaskDiv.innerText = projectList[i].tasks.at(-1).name;
+            projectNextTaskDiv.innerText = project.tasks.at(-1).name;
         }
         else{
-            projectNextTaskDiv.innerText = "No Tasks";
+            projectNextTaskDiv.innerText = "-";
         }
 
-
-        projectList[i].tasks.forEach((task)=>{
-            if(isValid(task.dueDate)){
+        console.log(project.tasks);
+        
+        project.tasks.forEach((task)=>{
+            if(task.dueDate != ""){
                 console.log(`The dueDate was VALID. Due date = ${task.dueDate}.`);
                 tempTaskList.push(task);
             }
@@ -101,41 +102,49 @@ function updateDashboard(){
 
     })
 
-    tempTaskList = sortDates(tempTaskList);
+    console.log(tempTaskList);
 
-    for(let i = tempTaskList.length-1; i>tempTaskList.length-6; i--){
-        const taskBlockDiv = document.createElement("div");
-        const taskNameDiv = document.createElement("div");
-        const taskDueDiv = document.createElement("div");
+    if(tempTaskList != undefined){
+        tempTaskList = sortDates(tempTaskList);
 
-        taskBlockDiv.setAttribute("id", "upcomingTaskBlock");
-        taskBlockDiv.setAttribute("class", "upcomingTaskBlock");
-        taskNameDiv.setAttribute("id", "upcomingTaskName");
-        taskNameDiv.setAttribute("class", "upcomingTaskName");
-        taskDueDiv.setAttribute("id", "upcomingTaskDue");
-        taskDueDiv.setAttribute("class", "upcomingTaskDue");
-
-        taskNameDiv.innerText = tempTaskList[i].name;
-        taskDueDiv.innerText = tempTaskList[i].dueDate;
+        console.log(`Temp task list sorted: ${tempTaskList}`);
+    
+        for(let i = 0; i < 4; i++){
+            const taskBlockDiv = document.createElement("div");
+            const taskNameDiv = document.createElement("div");
+            const taskDueDiv = document.createElement("div");
         
-        taskBlockDiv.appendChild(taskNameDiv);
-        taskBlockDiv.appendChild(taskDueDiv);
-        upcomingTaskArea.appendChild(taskBlockDiv);
-    }
+            taskBlockDiv.setAttribute("id", "upcomingTaskBlock");
+            taskBlockDiv.setAttribute("class", "upcomingTaskBlock");
+            taskNameDiv.setAttribute("id", "upcomingTaskName");
+            taskNameDiv.setAttribute("class", "upcomingTaskName");
+            taskDueDiv.setAttribute("id", "upcomingTaskDue");
+            taskDueDiv.setAttribute("class", "upcomingTaskDue");
+        
+            taskNameDiv.innerText = tempTaskList[i].name;
+            taskDueDiv.innerText = tempTaskList[i].dueDate;
+            
+            taskBlockDiv.appendChild(taskNameDiv);
+            taskBlockDiv.appendChild(taskDueDiv);
+            upcomingTaskArea.appendChild(taskBlockDiv);
+        }}
 
     }
 
 function sortDates(objectArray){
-    let swapped;
-    do {
-      swapped = false;
-      for (let i = 0; i < objectArray.length - 1; i++) {
-        if (compareDates(objectArray[i].dueDate, objectArray[i + 1].dueDate)) {
-          [objectArray[i], objectArray[i + 1]] = [objectArray[i + 1], objectArray[i]];
-          swapped = true;
-        }
-      }
-    } while (swapped);
+    let isSwapped;
+
+    for (let i = 0; i < objectArray.length; i++) {
+        isSwapped = false;
+        for (let j = 0; j < objectArray.length - i - 1; j++) {
+            if (objectArray[j] > objectArray[j + 1]) {
+                // Swap elements
+                [objectArray[j], objectArray[j + 1]] = [objectArray[j + 1], objectArray[j]];
+                isSwapped = true;
+            }}
+        if (!isSwapped) 
+            break;}
+    return objectArray;
 }
 
 function updateClock(){
@@ -143,7 +152,7 @@ function updateClock(){
     let clockMonth = document.querySelector("#clock.clockMonth");
     let clockYear = document.querySelector("#clock.clockYear");
 
-    const date = newDate();
+    let date = new Date();
 
     let day = getDate(date);
     let month = getMonth(date);
