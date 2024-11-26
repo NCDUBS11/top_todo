@@ -15,8 +15,11 @@ const newTaskBtn = document.getElementById("newTask");
 const newProjectBtn = document.getElementById("newProject");
 const homeBtn = document.querySelector("#navItem.home");
 
-populate.navColumnRefresh();
-// dashboardLoad();
+onload = (event) => {
+    populate.navColumnRefresh();
+    dashboardLoad();
+};
+
 
 homeBtn.addEventListener("click", ()=>{
     dashboardLoad();

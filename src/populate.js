@@ -86,12 +86,9 @@ function updateDashboard(){
         else{
             projectNextTaskDiv.innerText = "-";
         }
-
-        console.log(project.tasks);
         
         project.tasks.forEach((task)=>{
             if(task.dueDate != ""){
-                console.log(`The dueDate was VALID. Due date = ${task.dueDate}.`);
                 tempTaskList.push(task);
             }
         })
@@ -102,14 +99,15 @@ function updateDashboard(){
 
     })
 
-    console.log(tempTaskList);
-
     if(tempTaskList != undefined){
         tempTaskList = sortDates(tempTaskList);
-
-        console.log(`Temp task list sorted: ${tempTaskList}`);
     
         for(let i = 0; i < 4; i++){
+
+            if(tempTaskList[i] == undefined){
+                continue;
+            }
+
             const taskBlockDiv = document.createElement("div");
             const taskNameDiv = document.createElement("div");
             const taskDueDiv = document.createElement("div");
@@ -137,7 +135,7 @@ function sortDates(objectArray){
     for (let i = 0; i < objectArray.length; i++) {
         isSwapped = false;
         for (let j = 0; j < objectArray.length - i - 1; j++) {
-            if (objectArray[j] > objectArray[j + 1]) {
+            if (compareDates(objectArray[j].dueDate, objectArray[j + 1].dueDate) == 1) {
                 // Swap elements
                 [objectArray[j], objectArray[j + 1]] = [objectArray[j + 1], objectArray[j]];
                 isSwapped = true;

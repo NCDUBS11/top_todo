@@ -18,7 +18,7 @@
     --fw-bold: 700;
     --fw-xbold: 800;
     --bg-color: rgba(16, 94, 184, 1.0);
-    --bg-color-fade: rgba(16, 94, 184, 0.6);
+    --bg-color-highlight: rgb(21, 105, 201);
     --bg-color-alt: rgb(34, 116, 209);
     --bg-actColor:rgba(117, 116, 116, 0.4);
     --bg-button: rgba(189, 3, 3, 0.61);
@@ -379,9 +379,25 @@ button:active{
 .projectListBlock{
     display: flex;
     gap: var(--fs-regular);
+    padding-inline: 10px;
+    border-radius: 5px;
     align-items: center;
     justify-content: space-between;
 }
+
+.upcomingTaskBlock:hover,
+.projectListBlock:hover{
+    scale: 1.01;
+    background-color: var(--bg-color-highlight);
+    cursor: pointer;
+}
+
+.upcomingTaskBlock:active,
+.projectListBlock:active{
+    scale: 1.00;
+    background-color: var(--bg-color-highlight);
+}
+
 
 .upcomingTaskName,
 .projectListName{
@@ -390,14 +406,7 @@ button:active{
 
 .upcomingTaskName:hover,
 .projectListName:hover{
-    font-weight: var(--fw-bold);
-    scale:1.02;
     cursor: pointer;
-}
-
-.upcomingTaskName:active,
-.projectListName:active{
-    scale: 0.975;
 }
 
 .dashClock{
