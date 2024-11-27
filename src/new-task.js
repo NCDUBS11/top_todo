@@ -2,6 +2,7 @@
 import * as validate from "./validate";
 import { Project, projectList } from "./new-project";
 import * as populate from "./populate";
+import dashboardLoad from "./dashboard";
 import { compareAsc, format, formatDate, formatDistance, formatDistanceToNow } from "date-fns";
 
 
@@ -32,7 +33,7 @@ export default function newTask(){
                 </div>
                 <div class="formControl submitNewTask">
                     <button id="submitBtn" class="submitBtn" type="button" onclick="">Submit</button>
-                    <button id="cancelBtn" class="cancelBtn" type="button" onclick="">Cancel</button>
+                    <button id="cancelBtn" class="cancelBtn" type="button" onclick="">Close</button>
                     <p id="errorDescription" class="errorDescription">'error desc'</p>
                 </div>
             </fieldset>
@@ -57,7 +58,8 @@ export default function newTask(){
 
     cancelBtn.addEventListener("click", ()=>{
         newTaskForm.reset();
-        mainArea.innerHTML = "";})
+        mainArea.innerHTML = "";
+        dashboardLoad();})
 
         
     taskMenuInputs.forEach((input)=>{

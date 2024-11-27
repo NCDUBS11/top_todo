@@ -1,6 +1,7 @@
 
 import * as validate from "./validate";
 import * as populate from "./populate";
+import dashboardLoad from "./dashboard";
 import { compareAsc, format, formatDate, formatDistance, formatDistanceToNow } from "date-fns";
 
 /*Create initial project folder and add to projectList*/
@@ -21,7 +22,7 @@ export function Project(name, description, date) {
     this.date = date;
     this.tasks = [];}
 
-export default function newProject(){
+export function newProject(){
     const mainArea = document.getElementById("main");
 
     mainArea.innerHTML =
@@ -43,7 +44,7 @@ export default function newProject(){
                 </div>
                 <div class="formControl submitNewProject">
                     <button id="submitBtn" class="submitBtn" type="button">Submit</button>
-                    <button id="cancelBtn" class="cancelBtn" type="button">Cancel</button>
+                    <button id="cancelBtn" class="cancelBtn" type="button">Close</button>
                     <p id="errorDescription" class="errorDescription">'error desc'</p>
                 </div>
             </fieldset>
@@ -66,7 +67,8 @@ export default function newProject(){
 
     cancelBtn.addEventListener("click", ()=>{
         newProjectForm.reset();
-        mainArea.innerHTML = "";})
+        mainArea.innerHTML = "";
+        dashboardLoad();})
 
     projectName.addEventListener("keyup", (e)=>{
         validate.checkProjectInput(e)});
@@ -90,3 +92,11 @@ export default function newProject(){
         populate.navColumnRefresh();
         newProjectForm.reset();})
 };
+
+export function clearAll(){   
+    generalProjectObj.tasks = [];
+    projectList = [generalProjectObj];
+
+    populate.navColumnRefresh();
+    dashboardLoad();
+}

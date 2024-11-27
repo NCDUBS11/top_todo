@@ -1,6 +1,6 @@
 import "./styles.css";
 import newTask from "./new-task";
-import newProject from "./new-project";
+import { newProject, clearAll } from "./new-project";
 import dashboardLoad from "./dashboard";
 import * as populate from "./populate";
 import { compareAsc, format, formatDistance, formatDistanceToNow } from "date-fns";
@@ -14,6 +14,7 @@ if (process.env.NODE_ENV !== "production") {
 const newTaskBtn = document.getElementById("newTask");
 const newProjectBtn = document.getElementById("newProject");
 const homeBtn = document.querySelector("#navItem.home");
+const trashBtn = document.getElementById("trashCan");
 
 onload = (event) => {
     populate.navColumnRefresh();
@@ -23,6 +24,10 @@ onload = (event) => {
 
 homeBtn.addEventListener("click", ()=>{
     dashboardLoad();
+});
+
+trashBtn.addEventListener("click", ()=>{
+    clearAll();
 });
 
 newTaskBtn.addEventListener("click", ()=>{

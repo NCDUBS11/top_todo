@@ -17,9 +17,11 @@
     --fw-regular: 500;
     --fw-bold: 700;
     --fw-xbold: 800;
-    --bg-color: rgba(16, 94, 184, 1.0);
+    /* --bg-color: rgba(16, 94, 184, 1.0);
+    --bg-color-alt: rgb(34, 116, 209); */
+    --bg-color: rgb(13, 83, 163);
+    --bg-color-alt: rgb(30, 104, 189);
     --bg-color-highlight: rgb(21, 105, 201);
-    --bg-color-alt: rgb(34, 116, 209);
     --bg-actColor:rgba(117, 116, 116, 0.4);
     --bg-button: rgba(189, 3, 3, 0.61);
     --bg-buttonAlt: rgba(255, 44, 44, 0.61);
@@ -99,21 +101,19 @@ nav{
 .navProjects{
     display: grid;
     gap: var(--fs-large);
+    background-color: var(--bg-color);
+    padding-block: calc(var(--fs-small)/2);
+    padding-inline: var(--fs-small);
+    border-radius: 10px;
     overflow-y: auto;
 }
 
 .projectTask{
     font-weight: var(--fw-thin);
-    width: max-content;
-}
-
-.projectTask:hover{
-    font-weight: var(--fw-bold);
-    cursor: pointer;
-}
-
-.projectTask:active{
-    scale: 0.975;
+    border-radius: 5px;
+    padding-inline: 10px;
+    padding-block: 1px;
+    /* width: max-content; */
 }
 
 ul,
@@ -151,19 +151,22 @@ li.navItem:active{
 .projectTitle{
     width: max-content;
     font-weight: var(--fw-bold);
-    background-image: linear-gradient(white, white);
+    /* background-image: linear-gradient(white, white);
     background-size: 0% 0.1em;
     background-position-y: 100%;
     background-position-x: 0%;
     background-repeat: no-repeat;
-    transition: background-size 0.2s ease-in-out;
+    transition: background-size 0.2s ease-in-out; */
     }
 
-.projectTitle:hover,
+/* .projectTitle:hover,
 .projectTitle:focus,
 .projectTitle:active {
     background-size: 100% 0.1em;
-}
+} */
+ .projectTitle:hover{
+    scale: 1.02
+ }
 
 .projectTitle:active{
     scale: 0.975;
@@ -217,6 +220,7 @@ aside,
 .actionMain{
     display: flex;
     justify-content: space-between;
+    padding-inline: 10px;
 }
 
 main{
@@ -380,31 +384,38 @@ button:active{
     display: flex;
     gap: var(--fs-regular);
     padding-inline: 10px;
-    border-radius: 5px;
+    padding-block: 3px;
+    border-radius: 7.5px;
     align-items: center;
     justify-content: space-between;
 }
 
 .upcomingTaskBlock:hover,
-.projectListBlock:hover{
+.projectListBlock:hover,
+.projectTask:hover{
     scale: 1.01;
     background-color: var(--bg-color-highlight);
     cursor: pointer;
 }
 
 .upcomingTaskBlock:active,
-.projectListBlock:active{
+.projectListBlock:active,
+.projectTask:active{
     scale: 1.00;
     background-color: var(--bg-color-highlight);
 }
 
 
 .upcomingTaskName,
+.nextProjectListTask,
+.upcomingTaskDue,
 .projectListName{
-    font-weight: var(--fw-regular);
+    font-weight: var(--fw-thin);
 }
 
 .upcomingTaskName:hover,
+.nextProjectListTask:hover,
+.upcomingTaskDue:hover,
 .projectListName:hover{
     cursor: pointer;
 }
