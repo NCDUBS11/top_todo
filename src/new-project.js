@@ -90,13 +90,37 @@ export function newProject(){
 
         projectList.push(project);
         populate.navColumnRefresh();
-        newProjectForm.reset();})
+        newProjectForm.reset();
+        setData(projectList);})
 };
 
 export function clearAll(){   
     generalProjectObj.tasks = [];
     projectList = [generalProjectObj];
+    localStorage.clear();
 
     populate.navColumnRefresh();
     dashboardLoad();
+}
+
+
+export function getData(){
+    const storedData = localStorage.getItem("userData");
+
+    if(storedData){
+        const userData = JSON.parse(storedData);
+
+        console.log("Existing data found.", userData);
+        projectList = userData;
+        return 1;
+    }
+    else{
+        console.log("No existing data found in localStorage");
+        return 0;
+    }
+}
+
+export function setData(projectList){
+    localStorage.setItem("userData", JSON.stringify(projectList));
+    return 1;
 }

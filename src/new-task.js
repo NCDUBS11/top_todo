@@ -1,4 +1,5 @@
 
+import { setData } from "./new-project"
 import * as validate from "./validate";
 import { Project, projectList } from "./new-project";
 import * as populate from "./populate";
@@ -118,6 +119,7 @@ export default function newTask(){
         
         populate.navColumnRefresh();
         newTaskForm.reset();
+        setData(projectList);
     })
 
 
